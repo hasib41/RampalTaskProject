@@ -1,12 +1,13 @@
 // Application constants - single source of truth
 
-// Navigation links
+// Navigation links (updated for React Router)
 export const NAV_LINKS = [
-    { id: 1, label: 'Home', href: '#home' },
-    { id: 2, label: 'About', href: '#about' },
-    { id: 3, label: 'Tenders', href: '#tenders' },
-    { id: 4, label: 'Careers', href: '#careers' },
-    { id: 5, label: 'Contact Us', href: '#contact' },
+    { id: 1, label: 'Home', href: '/' },
+    { id: 2, label: 'About', href: '/about' },
+    { id: 3, label: 'Tenders', href: '/tenders' },
+    { id: 4, label: 'Careers', href: '/careers' },
+    { id: 5, label: 'News', href: '/news' },
+    { id: 6, label: 'Contact', href: '/contact' },
 ] as const;
 
 // Company information
@@ -34,25 +35,25 @@ export const PROJECT_SPECS = [
     { label: 'Beneficiaries', value: '100% Power to BPDB' },
 ] as const;
 
-// Footer sections
+// Footer sections (updated for React Router)
 export const FOOTER_SECTIONS = [
     {
         id: 1,
         title: 'Quick Links',
         links: [
-            { id: 1, label: 'Home', href: '#home' },
-            { id: 2, label: 'About', href: '#about' },
-            { id: 3, label: 'Tenders', href: '#tenders' },
-            { id: 4, label: 'Contact', href: '#contact' },
+            { id: 1, label: 'Home', href: '/' },
+            { id: 2, label: 'About', href: '/about' },
+            { id: 3, label: 'Tenders', href: '/tenders' },
+            { id: 4, label: 'Contact', href: '/contact' },
         ],
     },
     {
         id: 2,
-        title: 'Services',
+        title: 'Explore',
         links: [
-            { id: 1, label: 'Power Generation', href: '#' },
-            { id: 2, label: 'Energy Solutions', href: '#' },
-            { id: 3, label: 'Maintenance', href: '#' },
+            { id: 1, label: 'Careers', href: '/careers' },
+            { id: 2, label: 'News', href: '/news' },
+            { id: 3, label: 'Tenders', href: '/tenders' },
         ],
     },
 ] as const;
@@ -64,21 +65,21 @@ export const HERO_SLIDES = [
         title: 'Powering the Future',
         subtitle: 'Sustainable Energy Solutions for Bangladesh',
         cta: 'Learn More',
-        ctaLink: '#about',
+        ctaLink: '/about',
     },
     {
         id: 2,
         title: '1320 MW Capacity',
         subtitle: 'State-of-the-art thermal power generation',
         cta: 'View Project',
-        ctaLink: '#about',
+        ctaLink: '/about',
     },
     {
         id: 3,
         title: 'Building Tomorrow',
         subtitle: 'A joint venture for national development',
         cta: 'Explore',
-        ctaLink: '#about',
+        ctaLink: '/about',
     },
 ] as const;
 

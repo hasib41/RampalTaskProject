@@ -1,11 +1,13 @@
 // Header Component - Fully featured with scroll effects and mobile menu
 import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { NAV_LINKS, COMPANY_INFO } from '../../constants';
 import './Header.css';
 
 function Header() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const location = useLocation();
 
     // Handle scroll effect
     useEffect(() => {
@@ -34,23 +36,32 @@ function Header() {
         };
     }, [isMobileMenuOpen]);
 
+    // Close mobile menu on route change
+    useEffect(() => {
+        setIsMobileMenuOpen(false);
+    }, [location]);
+
     return (
         <header className={`header ${isScrolled ? 'header-scrolled' : ''}`}>
             <div className="header-container">
                 {/* Logo */}
-                <a href="#home" className="logo">
+                <Link to="/" className="logo">
                     <span className="logo-icon">⚡</span>
                     <span className="logo-text">{COMPANY_INFO.name}</span>
-                </a>
+                </Link>
 
                 {/* Desktop Navigation */}
                 <nav className="navbar">
                     <ul className="nav-links">
                         {NAV_LINKS.map((link) => (
                             <li key={link.id}>
-                                <a href={link.href} onClick={handleNavClick}>
+                                <Link
+                                    to={link.href}
+                                    onClick={handleNavClick}
+                                    className={location.pathname === link.href ? 'active' : ''}
+                                >
                                     {link.label}
-                                </a>
+                                </Link>
                             </li>
                         ))}
                     </ul>
@@ -80,9 +91,13 @@ function Header() {
                     <ul>
                         {NAV_LINKS.map((link) => (
                             <li key={link.id}>
-                                <a href={link.href} onClick={handleNavClick}>
+                                <Link
+                                    to={link.href}
+                                    onClick={handleNavClick}
+                                    className={location.pathname === link.href ? 'active' : ''}
+                                >
                                     {link.label}
-                                </a>
+                                </Link>
                             </li>
                         ))}
                     </ul>
