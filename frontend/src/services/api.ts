@@ -58,6 +58,14 @@ export interface ProjectStat {
     order: number;
 }
 
+// DRF Paginated Response type
+interface PaginatedResponse<T> {
+    count: number;
+    next: string | null;
+    previous: string | null;
+    results: T[];
+}
+
 // Generic fetch wrapper with error handling
 async function apiFetch<T>(endpoint: string, options?: RequestInit): Promise<T> {
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
@@ -75,13 +83,22 @@ async function apiFetch<T>(endpoint: string, options?: RequestInit): Promise<T> 
     return response.json();
 }
 
+// Helper to extract results from paginated response
+function extractResults<T>(data: PaginatedResponse<T> | T[]): T[] {
+    if (Array.isArray(data)) {
+        return data;
+    }
+    return data.results || [];
+}
+
 // ==================== API Functions ====================
 
 /**
  * Get all tenders
  */
 export async function getTenders(): Promise<Tender[]> {
-    return apiFetch<Tender[]>('/tenders/');
+    const data = await apiFetch<PaginatedResponse<Tender> | Tender[]>('/tenders/');
+    return extractResults(data);
 }
 
 /**
@@ -95,14 +112,16 @@ export async function getTender(id: number): Promise<Tender> {
  * Get all news articles
  */
 export async function getNews(): Promise<News[]> {
-    return apiFetch<News[]>('/news/');
+    const data = await apiFetch<PaginatedResponse<News> | News[]>('/news/');
+    return extractResults(data);
 }
 
 /**
  * Get featured news only
  */
 export async function getFeaturedNews(): Promise<News[]> {
-    return apiFetch<News[]>('/news/featured/');
+    const data = await apiFetch<PaginatedResponse<News> | News[]>('/news/featured/');
+    return extractResults(data);
 }
 
 /**
@@ -116,7 +135,8 @@ export async function getNewsArticle(id: number): Promise<News> {
  * Get all job openings
  */
 export async function getCareers(): Promise<Career[]> {
-    return apiFetch<Career[]>('/careers/');
+    const data = await apiFetch<PaginatedResponse<Career> | Career[]>('/careers/');
+    return extractResults(data);
 }
 
 /**
@@ -140,5 +160,6 @@ export async function submitContactForm(data: ContactMessage): Promise<{ id: num
  * Get project statistics for homepage
  */
 export async function getProjectStats(): Promise<ProjectStat[]> {
-    return apiFetch<ProjectStat[]>('/stats/');
+    const data = await apiFetch<PaginatedResponse<ProjectStat> | ProjectStat[]>('/stats/');
+    return extractResults(data);
 }
