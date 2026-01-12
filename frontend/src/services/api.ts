@@ -1,0 +1,144 @@
+/**
+ * API Service - Connects frontend to Django backend.
+ * Provides typed functions for all API endpoints.
+ */
+
+// API Base URL - change in production
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+
+// Types for API responses
+export interface Tender {
+    id: number;
+    title: string;
+    description: string;
+    reference_number: string;
+    deadline: string;
+    document_url: string | null;
+    category: 'goods' | 'works' | 'services' | 'consultancy';
+    created_at: string;
+}
+
+export interface News {
+    id: number;
+    title: string;
+    content: string;
+    summary: string;
+    image_url: string | null;
+    is_featured: boolean;
+    created_at: string;
+}
+
+export interface Career {
+    id: number;
+    title: string;
+    department: string;
+    location: string;
+    description: string;
+    requirements: string;
+    job_type: 'full_time' | 'part_time' | 'contract' | 'internship';
+    deadline: string;
+    vacancies: number;
+    created_at: string;
+}
+
+export interface ContactMessage {
+    name: string;
+    email: string;
+    phone?: string;
+    subject: string;
+    message: string;
+}
+
+export interface ProjectStat {
+    id: number;
+    label: string;
+    value: number;
+    suffix: string;
+    icon: string;
+    order: number;
+}
+
+// Generic fetch wrapper with error handling
+async function apiFetch<T>(endpoint: string, options?: RequestInit): Promise<T> {
+    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            ...options?.headers,
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error(`API Error: ${response.status} ${response.statusText}`);
+    }
+
+    return response.json();
+}
+
+// ==================== API Functions ====================
+
+/**
+ * Get all tenders
+ */
+export async function getTenders(): Promise<Tender[]> {
+    return apiFetch<Tender[]>('/tenders/');
+}
+
+/**
+ * Get single tender by ID
+ */
+export async function getTender(id: number): Promise<Tender> {
+    return apiFetch<Tender>(`/tenders/${id}/`);
+}
+
+/**
+ * Get all news articles
+ */
+export async function getNews(): Promise<News[]> {
+    return apiFetch<News[]>('/news/');
+}
+
+/**
+ * Get featured news only
+ */
+export async function getFeaturedNews(): Promise<News[]> {
+    return apiFetch<News[]>('/news/featured/');
+}
+
+/**
+ * Get single news article by ID
+ */
+export async function getNewsArticle(id: number): Promise<News> {
+    return apiFetch<News>(`/news/${id}/`);
+}
+
+/**
+ * Get all job openings
+ */
+export async function getCareers(): Promise<Career[]> {
+    return apiFetch<Career[]>('/careers/');
+}
+
+/**
+ * Get single job by ID
+ */
+export async function getCareer(id: number): Promise<Career> {
+    return apiFetch<Career>(`/careers/${id}/`);
+}
+
+/**
+ * Submit contact form
+ */
+export async function submitContactForm(data: ContactMessage): Promise<{ id: number }> {
+    return apiFetch('/contact/', {
+        method: 'POST',
+        body: JSON.stringify(data),
+    });
+}
+
+/**
+ * Get project statistics for homepage
+ */
+export async function getProjectStats(): Promise<ProjectStat[]> {
+    return apiFetch<ProjectStat[]>('/stats/');
+}

@@ -1,0 +1,8 @@
+.home-page {
+    min-height: 100vh;
+}
+
+main {
+    padding-top: 70px;
+    /* Account for fixed header */
+}
