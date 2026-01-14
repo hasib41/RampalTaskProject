@@ -45,28 +45,6 @@ function ProjectsPage() {
                     </div>
                 </div>
 
-                {/* Map Section */}
-                <div className="container">
-                    <section className="map-section">
-                        <div className="map-search">
-                            <span>📍</span>
-                            <input type="text" placeholder="Search project location (e.g. Rampal, Bagerhat)..." />
-                        </div>
-                        <div className="map-legend">
-                            <h4>Map Legend</h4>
-                            <div className="legend-items">
-                                <span><i className="dot orange"></i> Coal Power</span>
-                                <span><i className="dot yellow"></i> Solar Energy</span>
-                                <span><i className="dot blue"></i> Transmission</span>
-                            </div>
-                        </div>
-                        <div className="map-marker">
-                            <span>🏭</span>
-                            <div className="marker-label">Maitree STPP</div>
-                        </div>
-                    </section>
-                </div>
-
                 {/* Main Content */}
                 <div className="projects-layout container">
                     {/* Sidebar */}
@@ -100,6 +78,31 @@ function ProjectsPage() {
                                 ))}
                             </div>
                             <button className="btn-outline-primary">View All News</button>
+                        </div>
+
+                        {/* Location Map Card */}
+                        <div className="sidebar-card map-card">
+                            <div className="card-header">
+                                <h3>Project Location</h3>
+                                <span>📍</span>
+                            </div>
+                            <div className="map-image-container">
+                                <img
+                                    src="/images/projects-map.png"
+                                    alt="Maitree STPP Location - Rampal, Bagerhat, Bangladesh"
+                                    className="map-image"
+                                />
+                                <div className="map-overlay">
+                                    <div className="map-pin">
+                                        <span className="pin-icon">🏭</span>
+                                        <span className="pin-label">Maitree STPP</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="map-info">
+                                <p><strong>Rampal, Bagerhat</strong></p>
+                                <p className="map-coords">22.5024° N, 89.5836° E</p>
+                            </div>
                         </div>
                     </aside>
 
