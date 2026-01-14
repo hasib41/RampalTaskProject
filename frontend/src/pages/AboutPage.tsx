@@ -1,81 +1,78 @@
-// About Page - Company information page
+// About Page - Corporate profile page
+import { Link } from 'react-router-dom';
 import { Header, Footer } from '../components/layout';
-import { COMPANY_INFO, PROJECT_SPECS } from '../constants';
+import { COMPANY_INFO } from '../constants';
 import './AboutPage.css';
 
+// About page data
+const MD_MESSAGE = {
+    name: 'Engr. Sayeed Akram',
+    title: 'Managing Director, BIFPCL',
+    quote: 'Our commitment to excellence and sustainable energy production drives every decision we make. We are building a legacy of power that empowers the nation while respecting the environment. Our goal is to set a new global standard for efficient coal-based power generation.',
+    image: '/images/hero-2.png',
+};
+
+const MILESTONES = [
+    { year: '2012', title: 'MoU Signing', description: 'Partnership between BPDB and NTPC India' },
+    { year: '2013', title: 'Company Formation', description: 'Incorporation of BIFPCL as JV company' },
+    { year: '2017', title: 'Financial Closure', description: 'Agreement with EXIM Bank of India' },
+    { year: '2022', title: 'Unit 1 Sync', description: 'First power generation from Unit 1' },
+];
+
+const RESOURCES = [
+    { icon: '👥', title: 'Board of Directors', description: 'Meet our leadership team', link: '/about' },
+    { icon: '📊', title: 'Annual Reports', description: 'Financial and operations data', link: '/about' },
+    { icon: '⚖️', title: 'Governance Policy', description: 'Compliance and ethics', link: '/about' },
+    { icon: '🤝', title: 'CSR Activities', description: 'Our community impact', link: '/about' },
+];
+
 function AboutPage() {
-    const milestones = [
-        { year: '2016', event: 'Joint Venture Agreement Signed', description: 'NTPC and BPDB formalize partnership' },
-        { year: '2017', event: 'Foundation Stone Laid', description: 'Prime Minister inaugurates project' },
-        { year: '2020', event: 'Unit 1 Trial Operation', description: 'First unit begins trial operations' },
-        { year: '2022', event: 'Full Commercial Operation', description: 'Both units achieve commercial operation' },
-    ];
-
-    const values = [
-        { icon: '🌱', title: 'Sustainability', description: 'Committed to environmental protection and sustainable practices' },
-        { icon: '⚡', title: 'Reliability', description: 'Ensuring uninterrupted power supply to the nation' },
-        { icon: '🤝', title: 'Partnership', description: 'Strong collaboration between India and Bangladesh' },
-        { icon: '🏆', title: 'Excellence', description: 'Maintaining highest standards in operations' },
-    ];
-
     return (
         <>
             <Header />
             <main className="about-page">
-                {/* Hero Section */}
-                <section className="page-hero about-hero">
+                {/* Breadcrumb */}
+                <nav className="breadcrumb">
                     <div className="container">
-                        <h1>About {COMPANY_INFO.name}</h1>
-                        <p>{COMPANY_INFO.tagline}</p>
+                        <Link to="/">Home</Link>
+                        <span className="separator">›</span>
+                        <Link to="/about">About Us</Link>
+                        <span className="separator">›</span>
+                        <span className="current">Corporate Profile</span>
+                    </div>
+                </nav>
+
+                {/* Page Header */}
+                <section className="page-header">
+                    <div className="container">
+                        <h1>About BIFPCL Corporate</h1>
+                        <p>
+                            Bangladesh-India Friendship Power Company (Pvt.) Limited is a joint venture
+                            dedicated to building energy independence and sustainable industrial growth
+                            through state-of-the-art power solutions.
+                        </p>
                     </div>
                 </section>
 
-                {/* Company Overview */}
-                <section className="company-overview">
+                {/* MD Message Section */}
+                <section className="md-message-section">
                     <div className="container">
-                        <div className="overview-content">
-                            <div className="overview-text">
-                                <span className="section-label">Our Story</span>
-                                <h2>Powering Bangladesh's Future</h2>
-                                <p>
-                                    Bangladesh India Friendship Power Company Limited (BIFPCL) is a 50:50 joint venture
-                                    between NTPC Ltd of India and Bangladesh Power Development Board (BPDB). The company
-                                    was formed to set up a 1320 MW coal-fired thermal power plant at Rampal in Bagerhat
-                                    district of Bangladesh.
-                                </p>
-                                <p>
-                                    This landmark project symbolizes the strong bilateral relationship between Bangladesh
-                                    and India, and represents a significant milestone in Bangladesh's journey towards
-                                    energy security and self-sufficiency.
-                                </p>
-                            </div>
-                            <div className="overview-stats">
-                                {PROJECT_SPECS.map((spec, index) => (
-                                    <div key={index} className="stat-box">
-                                        <span className="stat-value">{spec.value}</span>
-                                        <span className="stat-label">{spec.label}</span>
+                        <div className="md-card">
+                            <div className="md-image" style={{ backgroundImage: `url(${MD_MESSAGE.image})` }}></div>
+                            <div className="md-content">
+                                <span className="section-label">Leadership Message</span>
+                                <h2>Message from the Managing Director</h2>
+                                <blockquote>"{MD_MESSAGE.quote}"</blockquote>
+                                <div className="md-footer">
+                                    <div className="md-info">
+                                        <p className="md-name">{MD_MESSAGE.name}</p>
+                                        <p className="md-title">{MD_MESSAGE.title}</p>
                                     </div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                {/* Values Section */}
-                <section className="values-section">
-                    <div className="container">
-                        <div className="section-header">
-                            <span className="section-label">Our Values</span>
-                            <h2>What Drives Us</h2>
-                        </div>
-                        <div className="values-grid">
-                            {values.map((value, index) => (
-                                <div key={index} className="value-card">
-                                    <span className="value-icon">{value.icon}</span>
-                                    <h3>{value.title}</h3>
-                                    <p>{value.description}</p>
+                                    <button className="read-more-btn">
+                                        Read Full Message <span>→</span>
+                                    </button>
                                 </div>
-                            ))}
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -83,44 +80,61 @@ function AboutPage() {
                 {/* Timeline Section */}
                 <section className="timeline-section">
                     <div className="container">
-                        <div className="section-header">
-                            <span className="section-label">Our Journey</span>
-                            <h2>Project Milestones</h2>
-                        </div>
+                        <h2>Our Journey & Milestones</h2>
                         <div className="timeline">
-                            {milestones.map((milestone, index) => (
-                                <div key={index} className="timeline-item">
-                                    <div className="timeline-marker">
-                                        <span className="timeline-year">{milestone.year}</span>
+                            <div className="timeline-line"></div>
+                            <div className="timeline-items">
+                                {MILESTONES.map((item, index) => (
+                                    <div key={index} className={`timeline-item ${index === MILESTONES.length - 1 ? 'future' : ''}`}>
+                                        <div className="timeline-dot"></div>
+                                        <p className="timeline-year">{item.year}</p>
+                                        <p className="timeline-title">{item.title}</p>
+                                        <p className="timeline-desc">{item.description}</p>
                                     </div>
-                                    <div className="timeline-content">
-                                        <h3>{milestone.event}</h3>
-                                        <p>{milestone.description}</p>
-                                    </div>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </section>
 
-                {/* Partners Section */}
-                <section className="partners-section">
+                {/* Vision & Mission */}
+                <section className="vision-mission-section">
                     <div className="container">
-                        <div className="section-header">
-                            <span className="section-label">Joint Venture Partners</span>
-                            <h2>Our Partners</h2>
+                        <div className="vm-grid">
+                            <div className="vm-card vision">
+                                <div className="vm-icon">👁️</div>
+                                <h3>Our Vision</h3>
+                                <p>
+                                    To be a world-class power utility company providing reliable,
+                                    sustainable, and affordable power through clean technology,
+                                    fostering economic growth and social development.
+                                </p>
+                            </div>
+                            <div className="vm-card mission">
+                                <div className="vm-icon">🚀</div>
+                                <h3>Our Mission</h3>
+                                <p>
+                                    Implementing high-capacity thermal power projects with advanced
+                                    environmental protection measures to meet the energy demands of
+                                    Bangladesh while maintaining ecological balance.
+                                </p>
+                            </div>
                         </div>
-                        <div className="partners-grid">
-                            <div className="partner-card">
-                                <div className="partner-logo">🇮🇳</div>
-                                <h3>NTPC Limited</h3>
-                                <p>India's largest power company with 50% stake in the joint venture</p>
-                            </div>
-                            <div className="partner-card">
-                                <div className="partner-logo">🇧🇩</div>
-                                <h3>BPDB</h3>
-                                <p>Bangladesh Power Development Board with 50% stake in the joint venture</p>
-                            </div>
+                    </div>
+                </section>
+
+                {/* Corporate Resources */}
+                <section className="resources-section">
+                    <div className="container">
+                        <h2>Corporate Resources</h2>
+                        <div className="resources-grid">
+                            {RESOURCES.map((item, index) => (
+                                <Link key={index} to={item.link} className="resource-card">
+                                    <span className="resource-icon">{item.icon}</span>
+                                    <p className="resource-title">{item.title}</p>
+                                    <p className="resource-desc">{item.description}</p>
+                                </Link>
+                            ))}
                         </div>
                     </div>
                 </section>

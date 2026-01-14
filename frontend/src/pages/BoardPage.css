@@ -1,0 +1,294 @@
+/* Board of Directors Page */
+
+.board-page {
+    padding-top: 70px;
+    background: #f6f6f8;
+    min-height: 100vh;
+}
+
+.board-page .container {
+    padding: 32px 24px 80px;
+}
+
+/* Breadcrumb */
+.board-page .breadcrumb {
+    display: flex;
+    gap: 8px;
+    font-size: 14px;
+    margin-bottom: 24px;
+}
+
+.board-page .breadcrumb a {
+    color: #4c669a;
+    text-decoration: none;
+}
+
+.board-page .breadcrumb a:hover {
+    color: var(--color-primary);
+}
+
+.board-page .breadcrumb span:last-child {
+    color: var(--color-dark);
+    font-weight: 500;
+}
+
+/* Page Header */
+.board-page .page-header {
+    margin-bottom: 48px;
+}
+
+.board-page .page-header h1 {
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 900;
+    margin-bottom: 16px;
+}
+
+.board-page .page-header p {
+    font-size: 18px;
+    color: #4c669a;
+    max-width: 700px;
+}
+
+/* Section Title */
+.section-title {
+    font-size: 24px;
+    font-weight: 700;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e7ebf3;
+    margin-bottom: 32px;
+}
+
+/* Leadership/Chairman Card */
+.leadership-section {
+    margin-bottom: 64px;
+}
+
+.chairman-card {
+    display: flex;
+    gap: 48px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 32px;
+    border: 1px solid #e7ebf3;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+.chairman-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.chairman-content .badge {
+    display: inline-block;
+    background: rgba(19, 91, 236, 0.1);
+    color: var(--color-primary);
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    width: fit-content;
+    margin-bottom: 16px;
+}
+
+.chairman-content h3 {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.chairman-content .title {
+    font-size: 18px;
+    color: var(--color-primary);
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.chairman-content .bio {
+    font-size: 16px;
+    color: #4c669a;
+    line-height: 1.7;
+    margin-bottom: 24px;
+}
+
+.chairman-image {
+    width: 320px;
+    min-height: 400px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 12px;
+    border: 1px solid #e7ebf3;
+    flex-shrink: 0;
+}
+
+/* Members Grid */
+.members-section {
+    margin-bottom: 64px;
+}
+
+.members-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.member-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #e7ebf3;
+    transition: box-shadow 0.3s, transform 0.3s;
+}
+
+.member-card:hover {
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+}
+
+.member-image {
+    height: 240px;
+    background-size: cover;
+    background-position: center;
+    background-color: #e7ebf3;
+}
+
+.member-info {
+    padding: 24px;
+}
+
+.member-info h4 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.member-title {
+    font-size: 14px;
+    color: #4c669a;
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+
+.member-bio {
+    font-size: 14px;
+    color: #4c669a;
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+.view-profile {
+    background: none;
+    border: none;
+    color: var(--color-primary);
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 0;
+}
+
+/* Governance Section */
+.governance-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 48px;
+    padding: 48px;
+    background: rgba(19, 91, 236, 0.05);
+    border-radius: 16px;
+    border: 1px solid rgba(19, 91, 236, 0.1);
+}
+
+.governance-content {
+    flex: 1;
+}
+
+.governance-content h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 16px;
+}
+
+.governance-content p {
+    font-size: 16px;
+    color: #4c669a;
+    line-height: 1.7;
+    margin-bottom: 24px;
+}
+
+.governance-badges {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.governance-badges span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #e7ebf3;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.governance-btn {
+    background: var(--color-primary);
+    color: #fff;
+    padding: 16px 32px;
+    border-radius: 12px;
+    border: none;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(19, 91, 236, 0.2);
+    white-space: nowrap;
+}
+
+/* Buttons */
+.btn-primary {
+    background: var(--color-primary);
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+    width: fit-content;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .chairman-card {
+        flex-direction: column;
+    }
+
+    .chairman-image {
+        width: 100%;
+        min-height: 300px;
+    }
+
+    .members-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .governance-section {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .members-grid {
+        grid-template-columns: 1fr;
+    }
+}

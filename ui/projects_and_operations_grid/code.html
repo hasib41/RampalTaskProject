@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Projects &amp; Operations | EnergyCorp</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#0d121b] dark:text-white antialiased min-h-screen">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-50 w-full border-b border-solid border-[#e7ebf3] dark:border-gray-800 bg-white dark:bg-background-dark px-4 md:px-10 lg:px-20 py-3">
+<div class="max-w-[1440px] mx-auto flex items-center justify-between whitespace-nowrap">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-8">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M36.7273 44C33.9891 44 31.6043 39.8386 30.3636 33.69C29.123 39.8386 26.7382 44 24 44C21.2618 44 18.877 39.8386 17.6364 33.69C16.3957 39.8386 14.0109 44 11.2727 44C7.25611 44 4 35.0457 4 24C4 12.9543 7.25611 4 11.2727 4C14.0109 4 16.3957 8.16144 17.6364 14.31C18.877 8.16144 21.2618 4 24 4C26.7382 4 29.123 8.16144 30.3636 14.31C31.6043 8.16144 33.9891 4 36.7273 4C40.7439 4 44 12.9543 44 24C44 35.0457 40.7439 44 36.7273 44Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-[#0d121b] dark:text-white text-xl font-bold leading-tight tracking-[-0.015em]">EnergyCorp</h2>
+</div>
+<nav class="hidden lg:flex items-center gap-9">
+<a class="text-[#0d121b] dark:text-gray-300 text-sm font-medium hover:text-primary transition-colors" href="#">Home</a>
+<a class="text-primary text-sm font-bold border-b-2 border-primary pb-1" href="#">Projects</a>
+<a class="text-[#0d121b] dark:text-gray-300 text-sm font-medium hover:text-primary transition-colors" href="#">Operations</a>
+<a class="text-[#0d121b] dark:text-gray-300 text-sm font-medium hover:text-primary transition-colors" href="#">Sustainability</a>
+<a class="text-[#0d121b] dark:text-gray-300 text-sm font-medium hover:text-primary transition-colors" href="#">Investors</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden sm:flex items-center bg-[#e7ebf3] dark:bg-gray-800 rounded-lg px-3 py-1.5 border border-transparent focus-within:border-primary">
+<span class="material-symbols-outlined text-[#4c669a] text-xl">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm text-[#0d121b] dark:text-white placeholder:text-[#4c669a] w-48" placeholder="Search projects" type="text"/>
+</div>
+<button class="bg-primary text-white text-sm font-bold px-5 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                    Contact Us
+                </button>
+<div class="h-10 w-10 rounded-full bg-cover bg-center border-2 border-primary/20" data-alt="User profile avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuATLQoLCnkAjT35YyDllWR9jdLekHM9aY5k5Rwv5Fmrq2D4zQoQdF4_p_1cD0M1bir10zEGRB3GjVB7bWddDvQmVTpdDJ_p_w_6H48ojzc5L5AroeklTdlHLAwRbSBanGEFJ3CbGqr2g1IhJsVoLxG1mLaTqEwCmxl2Ke5t6ty3NdQMmOl3rk1yDGmfplbQnvP_zhpOX8la4p-1LHkd3EhLWJtlC1f-ll3cqWTI1dPZm-OsFftDnlIly--6Yi6z1vwANffsGYduYVI');"></div>
+</div>
+</div>
+</header>
+<main class="max-w-[1440px] mx-auto py-8 px-4 md:px-10 lg:px-20">
+<!-- Breadcrumbs & Heading -->
+<div class="mb-8">
+<div class="flex items-center gap-2 mb-4">
+<a class="text-[#4c669a] hover:text-primary text-sm font-medium" href="#">Home</a>
+<span class="material-symbols-outlined text-[#4c669a] text-sm">chevron_right</span>
+<span class="text-[#0d121b] dark:text-white text-sm font-medium">Projects &amp; Operations</span>
+</div>
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div class="max-w-2xl">
+<h1 class="text-[#0d121b] dark:text-white text-4xl font-black tracking-tight mb-2">Projects &amp; Operations</h1>
+<p class="text-[#4c669a] dark:text-gray-400 text-lg">Exploring our global footprint in energy innovation and infrastructure, powering a sustainable future through diverse energy sources.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-[#e7ebf3] dark:border-gray-700 rounded-lg text-sm font-medium">
+<span class="material-symbols-outlined text-xl">share</span>
+                        Share
+                    </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-[#e7ebf3] dark:border-gray-700 rounded-lg text-sm font-medium">
+<span class="material-symbols-outlined text-xl">file_download</span>
+                        Export PDF
+                    </button>
+</div>
+</div>
+</div>
+<!-- Interactive Map Section -->
+<section class="mb-12">
+<div class="relative w-full h-[500px] rounded-xl overflow-hidden shadow-xl bg-gray-200 dark:bg-gray-900 border border-[#e7ebf3] dark:border-gray-800">
+<div class="absolute inset-0 bg-cover bg-center opacity-80" data-alt="A stylized global map showing energy project locations with glowing markers" data-location="Global Energy Infrastructure Map" style="background-image: url('https://placeholder.pics/svg/300');"></div>
+<!-- Map Controls Overlay -->
+<div class="absolute top-6 left-6 z-10 w-full max-w-sm">
+<div class="flex bg-white dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden border border-[#e7ebf3] dark:border-gray-700">
+<div class="flex items-center justify-center pl-4 text-[#4c669a]">
+<span class="material-symbols-outlined">map</span>
+</div>
+<input class="form-input flex-1 border-none bg-transparent focus:ring-0 text-[#0d121b] dark:text-white text-sm p-4" placeholder="Search project location (e.g. Sydney, Tokyo)..." type="text"/>
+</div>
+</div>
+<div class="absolute bottom-6 right-6 flex flex-col gap-3">
+<div class="flex flex-col bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-[#e7ebf3] dark:border-gray-700">
+<button class="p-3 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors border-b border-[#e7ebf3] dark:border-gray-700">
+<span class="material-symbols-outlined text-[#0d121b] dark:text-white">add</span>
+</button>
+<button class="p-3 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+<span class="material-symbols-outlined text-[#0d121b] dark:text-white">remove</span>
+</button>
+</div>
+<button class="p-3 bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-[#e7ebf3] dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+<span class="material-symbols-outlined text-[#0d121b] dark:text-white">near_me</span>
+</button>
+</div>
+<!-- Legend Overlay -->
+<div class="absolute bottom-6 left-6 p-4 bg-white/90 dark:bg-gray-900/90 backdrop-blur rounded-lg shadow-lg border border-[#e7ebf3] dark:border-gray-700">
+<h4 class="text-xs font-bold uppercase tracking-wider text-[#4c669a] mb-2">Map Legend</h4>
+<div class="flex flex-wrap gap-4">
+<div class="flex items-center gap-2">
+<span class="size-3 rounded-full bg-orange-500"></span>
+<span class="text-xs font-medium">Coal Power</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="size-3 rounded-full bg-yellow-400"></span>
+<span class="text-xs font-medium">Solar Energy</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="size-3 rounded-full bg-blue-500"></span>
+<span class="text-xs font-medium">Transmission</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Content Area: Sidebar + Grid -->
+<div class="flex flex-col lg:flex-row gap-8">
+<!-- Sidebar Navigation -->
+<aside class="w-full lg:w-64 flex-shrink-0">
+<div class="sticky top-24 flex flex-col gap-8">
+<!-- Categories -->
+<div class="bg-white dark:bg-gray-900 p-5 rounded-xl border border-[#e7ebf3] dark:border-gray-800 shadow-sm">
+<div class="mb-4">
+<h3 class="text-[#0d121b] dark:text-white font-bold text-base leading-tight">Project Categories</h3>
+<p class="text-[#4c669a] text-xs">Filter by energy source</p>
+</div>
+<div class="flex flex-col gap-1">
+<button class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary text-white shadow-md transition-all">
+<span class="material-symbols-outlined text-xl">grid_view</span>
+<span class="text-sm font-semibold">All Projects</span>
+</button>
+<button class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#0d121b] dark:text-gray-300 hover:bg-[#e7ebf3] dark:hover:bg-gray-800 transition-all">
+<span class="material-symbols-outlined text-xl">factory</span>
+<span class="text-sm font-medium">Coal Power</span>
+</button>
+<button class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#0d121b] dark:text-gray-300 hover:bg-[#e7ebf3] dark:hover:bg-gray-800 transition-all">
+<span class="material-symbols-outlined text-xl">lightbulb</span>
+<span class="text-sm font-medium">Solar Energy</span>
+</button>
+<button class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#0d121b] dark:text-gray-300 hover:bg-[#e7ebf3] dark:hover:bg-gray-800 transition-all">
+<span class="material-symbols-outlined text-xl">electric_bolt</span>
+<span class="text-sm font-medium">Transmission</span>
+</button>
+<button class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#0d121b] dark:text-gray-300 hover:bg-[#e7ebf3] dark:hover:bg-gray-800 transition-all">
+<span class="material-symbols-outlined text-xl">water_drop</span>
+<span class="text-sm font-medium">Hydroelectric</span>
+</button>
+</div>
+</div>
+<!-- Latest Updates -->
+<div class="bg-white dark:bg-gray-900 p-5 rounded-xl border border-[#e7ebf3] dark:border-gray-800 shadow-sm">
+<div class="mb-4 flex items-center justify-between">
+<h3 class="text-[#0d121b] dark:text-white font-bold text-base leading-tight">Latest Updates</h3>
+<span class="material-symbols-outlined text-primary text-xl">notifications_active</span>
+</div>
+<div class="space-y-4">
+<div class="flex flex-col gap-1 border-l-2 border-primary pl-3 py-1">
+<span class="text-[10px] uppercase font-bold text-[#4c669a]">Oct 24, 2023</span>
+<p class="text-xs font-semibold leading-snug">Solstice Farm phase II online</p>
+</div>
+<div class="flex flex-col gap-1 border-l-2 border-orange-500 pl-3 py-1">
+<span class="text-[10px] uppercase font-bold text-[#4c669a]">Oct 22, 2023</span>
+<p class="text-xs font-semibold leading-snug">Eagle Coal Station upgrade</p>
+</div>
+<div class="flex flex-col gap-1 border-l-2 border-blue-400 pl-3 py-1">
+<span class="text-[10px] uppercase font-bold text-[#4c669a]">Oct 18, 2023</span>
+<p class="text-xs font-semibold leading-snug">New 500kV Interconnector</p>
+</div>
+</div>
+<button class="w-full mt-6 py-2 border border-primary text-primary text-xs font-bold rounded hover:bg-primary hover:text-white transition-all">
+                            View All News
+                        </button>
+</div>
+</div>
+</aside>
+<!-- Project Grid Gallery -->
+<div class="flex-1">
+<!-- Grid Search & Filter Bar -->
+<div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
+<p class="text-sm font-medium text-[#4c669a]">Showing <span class="text-[#0d121b] dark:text-white font-bold">12</span> of 48 active projects</p>
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-2 text-sm text-[#4c669a]">
+<span>Sort by:</span>
+<select class="bg-white dark:bg-gray-900 border-[#e7ebf3] dark:border-gray-700 rounded text-sm font-medium text-[#0d121b] dark:text-white focus:ring-primary">
+<option>Recently Added</option>
+<option>Capacity (High to Low)</option>
+<option>Status</option>
+</select>
+</div>
+<div class="flex border border-[#e7ebf3] dark:border-gray-700 rounded p-1 bg-white dark:bg-gray-900">
+<button class="p-1 bg-gray-100 dark:bg-gray-800 rounded text-primary">
+<span class="material-symbols-outlined">grid_view</span>
+</button>
+<button class="p-1 text-[#4c669a]">
+<span class="material-symbols-outlined">list</span>
+</button>
+</div>
+</div>
+</div>
+<!-- The Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<div class="group bg-white dark:bg-gray-900 rounded-xl overflow-hidden border border-[#e7ebf3] dark:border-gray-800 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+<div class="h-48 w-full bg-cover bg-center relative" data-alt="Vast field of solar panels during sunset" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBKB_lP-WCuuTdvxRWlUX9BU27kylNHv71uqW0ERifI0IAh0noppu4zxhgOKs2rhX-qsjgWwSb-W4oWKCtssvAuP4G3Jt4JveZli0drVktTGgR3kCu5buX4lzPAK5Ctu4hx2wB48_lDEKWM83hcEFtWUNB8RE26N3GILmGyMwFH0dREd-bmhchffELqMxyygs5R2bUbhZIiB5MA64u2ND6gtMLTVXGRlaB5ohmNyOqmWd5dhk3BxtsZ0G0oAXeb_Rf7mcnJsOIznJw');">
+<div class="absolute top-3 right-3 bg-green-500 text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider">Operational</div>
+<div class="absolute bottom-3 left-3 bg-black/40 backdrop-blur-sm text-white px-2 py-1 rounded text-xs flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">wb_sunny</span>
+                                Solar
+                            </div>
+</div>
+<div class="p-5">
+<h3 class="text-[#0d121b] dark:text-white font-bold text-lg mb-1 group-hover:text-primary transition-colors">Solstice Solar Farm</h3>
+<p class="text-xs text-[#4c669a] mb-4">Nevada, United States</p>
+<div class="flex items-center justify-between pt-4 border-t border-[#e7ebf3] dark:border-gray-800">
+<div class="flex flex-col">
+<span class="text-[10px] text-[#4c669a] uppercase font-bold">Capacity</span>
+<span class="text-sm font-bold">450 MW</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-[10px] text-[#4c669a] uppercase font-bold">Efficiency</span>
+<span class="text-sm font-bold">94%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group bg-white dark:bg-gray-900 rounded-xl overflow-hidden border border-[#e7ebf3] dark:border-gray-800 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+<div class="h-48 w-full bg-cover bg-center relative" data-alt="Large coal-fired power plant with cooling towers" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBi-oK1zzarAsGinTUBT7ufiVzYa5wfoKeYYT6aXWoyzSxbAJ1sNg-o5HvmlHw_2ynXX2iUzKwrBJtXIk9csf7QmxPHFeELgNDkiE2JzvXmgdq7XX9aIk7hYuD3YAzN-gu-lqlglh3XzzTEcuQgjBY4kMBZojNMVyUQc6RCecxhv7TretNvvlcxAMGMDGRALTfrfIJ0u009nC6NP6dshX1Hf2hCiUnPRXg0lZFhQXX2Y6QZiFXXDofmFevboeYsEPYaYP2t3r-edHc');">
+<div class="absolute top-3 right-3 bg-amber-500 text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider">Maintenance</div>
+<div class="absolute bottom-3 left-3 bg-black/40 backdrop-blur-sm text-white px-2 py-1 rounded text-xs flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">factory</span>
+                                Coal
+                            </div>
+</div>
+<div class="p-5">
+<h3 class="text-[#0d121b] dark:text-white font-bold text-lg mb-1 group-hover:text-primary transition-colors">Iron Ore Power Plant</h3>
+<p class="text-xs text-[#4c669a] mb-4">New South Wales, AU</p>
+<div class="flex items-center justify-between pt-4 border-t border-[#e7ebf3] dark:border-gray-800">
+<div class="flex flex-col">
+<span class="text-[10px] text-[#4c669a] uppercase font-bold">Capacity</span>
+<span class="text-sm font-bold">1,320 MW</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-[10px] text-[#4c669a] uppercase font-bold">Uptime</span>
+<span class="text-sm font-bold">88.5%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="group bg-white dark:bg-gray-900 rounded-xl overflow-hidden border border-[#e7ebf3] dark:border-gray-800 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+<div class="h-48 w-full bg-cover bg-center relative" data-alt="High voltage electricity transmission towers" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBFv1e0swPx2iadIZGg7XNLNFmbsT3HMoTakEuUbw1tsq9ZjnYG2ycLampQYZ0npjcRmoRFvH3cAdxGoZ7WnnNn_ocIu2_cxxNhwin3sZo1BiWtYTyfwlYteBCswOiz-elkgEexSC-bw4HjBZaMGNTuU11wKGowDsUoMmNcWc2v084pGzBDOsJNWV8WURbLKpBxbgRA0jXlS87qV1Is14zU_dXw7em_b3u5hEiSNrFbFLt4Lgt4UFjiRTQG8HlmJ4ennqXM9-xhBis');">
+<div class="absolute top-3 right-3 bg-primary text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider">Under Construction</div>
+<div class="absolute bottom-3 left-3 bg-black/40 backdrop-blur-sm text-white px-2 py-1 rounded text-xs flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">bolt</span>
+                                Transmission
+                            </div>
+</div>
+<div class="p-5">
+<h3 class="text-[#0d121b] dark:text-white font-bold text-lg mb-1 group-hover:text-primary transition-colors">West Link Interconnector</h3>
+<p class="text-xs text-[#4c669a] mb-4">Bristol to London, UK</p>
+<div class="flex items-center justify-between pt-4 border-t border-[#e7ebf3] dark:border-gray-800">
+<div class="flex flex-col">
+<span class="text-[10px] text-[#4c669a] uppercase font-bold">Length</span>
+<span class="text-sm font-bold">214 KM</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-[10px] text-[#4c669a] uppercase font-bold">Voltage</span>
+<span class="text-sm font-bold">400 kV</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="group bg-white dark:bg-gray-900 rounded-xl overflow-hidden border border-[#e7ebf3] dark:border-gray-800 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+<div class="h-48 w-full bg-cover bg-center relative" data-alt="Aerial view of a hydroelectric dam and reservoir" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBzONSm94bHxIu0QLEwkmRhE1pA9_66mIqI6uWOJOkZ-VucWgPEsH0niu_zaafPscXHM_Ln6ffbktiFPARSFvxeA1kEBYDsCj78rlYnFPUCHaDXedLNHTfftp0gN474RHYbv-V60xqXnUUFyuczsY3dnExcAByr1vt_UCN7Guxct-jvp1RTayEw_A66Dli10D5q_-5NzS-88-eS6M1T9cBQ-eR5NCRwb9_H-HjnIgX_yD_YkMtvutTeQqjxZao_fcRL_TAlG89ovr8');">
+<div class="absolute top-3 right-3 bg-green-500 text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider">Operational</div>
+<div class="absolute bottom-3 left-3 bg-black/40 backdrop-blur-sm text-white px-2 py-1 rounded text-xs flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">water_drop</span>
+                                Hydro
+                            </div>
+</div>
+<div class="p-5">
+<h3 class="text-[#0d121b] dark:text-white font-bold text-lg mb-1 group-hover:text-primary transition-colors">Rivermouth Dam Station</h3>
+<p class="text-xs text-[#4c669a] mb-4">Vancouver, Canada</p>
+<div class="flex items-center justify-between pt-4 border-t border-[#e7ebf3] dark:border-gray-800">
+<div class="flex flex-col">
+<span class="text-[10px] text-[#4c669a] uppercase font-bold">Capacity</span>
+<span class="text-sm font-bold">850 MW</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-[10px] text-[#4c669a] uppercase font-bold">Turbines</span>
+<span class="text-sm font-bold">12 Active</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="group bg-white dark:bg-gray-900 rounded-xl overflow-hidden border border-[#e7ebf3] dark:border-gray-800 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+<div class="h-48 w-full bg-cover bg-center relative" data-alt="Solar energy arrays in a desert landscape" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB-UXB68QEp5xFH5lkjiS0iOPuVsPUzngIqhBtzM5hpgwVwjMa5jXomir6zmHlU_kP4ok2P72ZaCsuyAp6uFk-KblkglRjUtgk4-vbgzj4FgX0QVDmiLj1SXbUUp8Ukcb9CAiP7VroDNTteDFOBLQq3rJfCyk-GUT1d3ejoIxlAFk9Fh96FdSCf3jYLAU8t8wEpE03LcaGb25M2leAPvv9O0njofdCp3FWogRc8vRJcgfcuXaTQNyu5Mw3NhjYb72t696nUZXUFfUk');">
+<div class="absolute top-3 right-3 bg-blue-600 text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider">Planning</div>
+<div class="absolute bottom-3 left-3 bg-black/40 backdrop-blur-sm text-white px-2 py-1 rounded text-xs flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">wb_sunny</span>
+                                Solar
+                            </div>
+</div>
+<div class="p-5">
+<h3 class="text-[#0d121b] dark:text-white font-bold text-lg mb-1 group-hover:text-primary transition-colors">Sahara Sun Array Phase III</h3>
+<p class="text-xs text-[#4c669a] mb-4">Rabat, Morocco</p>
+<div class="flex items-center justify-between pt-4 border-t border-[#e7ebf3] dark:border-gray-800">
+<div class="flex flex-col">
+<span class="text-[10px] text-[#4c669a] uppercase font-bold">Target Cap.</span>
+<span class="text-sm font-bold">1,000 MW</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-[10px] text-[#4c669a] uppercase font-bold">Launch</span>
+<span class="text-sm font-bold">2026</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 6 -->
+<div class="group bg-white dark:bg-gray-900 rounded-xl overflow-hidden border border-[#e7ebf3] dark:border-gray-800 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+<div class="h-48 w-full bg-cover bg-center relative" data-alt="Industrial power transmission substation infrastructure" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBKmEYCSxgGhVy_ALARTp0kwaBXp_Oc3viOlcxCyC1XAIpzx_0_yGM-FIroPyRei_zFsN53xr7dh9d3UMdctXRTHQb23dbsa_-63WR7VpJtmS9Ku8Uu2N5A2VJYA8E9xvI5MlRSkGEnXyZ3sY9MunGRPKB6P5MynBwKdGuzzrAiWvHhcEB1K8rBwe9Dk1dDExUm9B7iI0nfJZMJwMg57a8J1e4am5Ri5AEa4Jr2knA5IggCNJLAKHyXrtMX5WF-I9_7bjiu2gHJ7hs');">
+<div class="absolute top-3 right-3 bg-green-500 text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider">Operational</div>
+<div class="absolute bottom-3 left-3 bg-black/40 backdrop-blur-sm text-white px-2 py-1 rounded text-xs flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">bolt</span>
+                                Transmission
+                            </div>
+</div>
+<div class="p-5">
+<h3 class="text-[#0d121b] dark:text-white font-bold text-lg mb-1 group-hover:text-primary transition-colors">City-South Substation</h3>
+<p class="text-xs text-[#4c669a] mb-4">Melbourne, Victoria</p>
+<div class="flex items-center justify-between pt-4 border-t border-[#e7ebf3] dark:border-gray-800">
+<div class="flex flex-col">
+<span class="text-[10px] text-[#4c669a] uppercase font-bold">Throughput</span>
+<span class="text-sm font-bold">2.4 GW</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-[10px] text-[#4c669a] uppercase font-bold">Uptime</span>
+<span class="text-sm font-bold">99.9%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<div class="mt-12 flex justify-center">
+<nav class="flex items-center gap-1">
+<button class="size-10 flex items-center justify-center rounded-lg border border-[#e7ebf3] dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="size-10 flex items-center justify-center rounded-lg bg-primary text-white font-bold">1</button>
+<button class="size-10 flex items-center justify-center rounded-lg border border-transparent hover:border-[#e7ebf3] dark:hover:border-gray-700">2</button>
+<button class="size-10 flex items-center justify-center rounded-lg border border-transparent hover:border-[#e7ebf3] dark:hover:border-gray-700">3</button>
+<span class="px-2 text-[#4c669a]">...</span>
+<button class="size-10 flex items-center justify-center rounded-lg border border-transparent hover:border-[#e7ebf3] dark:hover:border-gray-700">8</button>
+<button class="size-10 flex items-center justify-center rounded-lg border border-[#e7ebf3] dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</nav>
+</div>
+</div>
+</div>
+</main>
+<!-- Simple Footer -->
+<footer class="mt-20 border-t border-[#e7ebf3] dark:border-gray-800 py-10 bg-white dark:bg-gray-900">
+<div class="max-w-[1440px] mx-auto px-4 md:px-10 lg:px-20 flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-4 text-[#4c669a]">
+<div class="size-6 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M36.7273 44C33.9891 44 31.6043 39.8386 30.3636 33.69C29.123 39.8386 26.7382 44 24 44C21.2618 44 18.877 39.8386 17.6364 33.69C16.3957 39.8386 14.0109 44 11.2727 44C7.25611 44 4 35.0457 4 24C4 12.9543 7.25611 4 11.2727 4C14.0109 4 16.3957 8.16144 17.6364 14.31C18.877 8.16144 21.2618 4 24 4C26.7382 4 29.123 8.16144 30.3636 14.31C31.6043 8.16144 33.9891 4 36.7273 4C40.7439 4 44 12.9543 44 24C44 35.0457 40.7439 44 36.7273 44Z" fill="currentColor"></path>
+</svg>
+</div>
+<p class="text-sm font-medium">© 2023 EnergyCorp. Powering the globe responsibly.</p>
+</div>
+<div class="flex gap-6">
+<a class="text-[#4c669a] text-sm hover:text-primary" href="#">Privacy Policy</a>
+<a class="text-[#4c669a] text-sm hover:text-primary" href="#">Terms of Service</a>
+<a class="text-[#4c669a] text-sm hover:text-primary" href="#">Global Compliance</a>
+</div>
+</div>
+</footer>
+</body></html>

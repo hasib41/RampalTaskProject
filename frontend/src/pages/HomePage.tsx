@@ -1,6 +1,6 @@
 // HomePage - assembles all sections
 import { Header, Footer } from '../components/layout';
-import { HeroSection, AboutSection, StatsSection } from '../components/sections';
+import { HeroSection, ProjectsGrid, NewsletterCTA } from '../components/sections';
 import './HomePage.css';
 
 function HomePage() {
@@ -9,8 +9,8 @@ function HomePage() {
             <Header />
             <main>
                 <HeroSection />
-                <AboutSection />
-                <StatsSection />
+                <ProjectsGrid />
+                <NewsletterCTA />
             </main>
             <Footer />
         </div>
@@ -18,3 +18,4 @@ function HomePage() {
 }
 
 export default HomePage;
+

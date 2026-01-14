@@ -1,190 +1,156 @@
-// Contact Page - Contact form that submits to API
-import { useState } from 'react';
+// Contact Page - Corporate contact information
 import { Header, Footer } from '../components/layout';
-import { submitContactForm } from '../services/api';
 import { COMPANY_INFO } from '../constants';
 import './ContactPage.css';
 
+// Contact data
+const OFFICES = [
+    {
+        type: 'Corporate Office',
+        icon: '🏢',
+        address: 'Level 15, Borak Mehnur, 51/B Kemal Ataturk Avenue, Banani, Dhaka-1213, Bangladesh',
+        phone: '+88-02-9858567-70',
+        email: 'info@bifpcl.com',
+    },
+    {
+        type: 'Plant Site',
+        icon: '🏭',
+        address: 'Maitree Super Thermal Power Project, Rampal, Bagerhat, Bangladesh',
+        phone: '+88-04662-56123',
+        email: 'plant.office@bifpcl.com',
+    },
+];
+
+const SUBJECTS = ['General Inquiry', 'Project Information', 'Tenders & Procurement', 'Career Opportunities', 'Media & Public Relations'];
+
 function ContactPage() {
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        phone: '',
-        subject: '',
-        message: '',
-    });
-    const [loading, setLoading] = useState(false);
-    const [success, setSuccess] = useState(false);
-    const [error, setError] = useState<string | null>(null);
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        setLoading(true);
-        setError(null);
-
-        try {
-            await submitContactForm(formData);
-            setSuccess(true);
-            setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
-        } catch (err) {
-            setError('Failed to send message. Please try again.');
-        } finally {
-            setLoading(false);
-        }
     };
 
     return (
         <>
             <Header />
             <main className="contact-page">
-                <section className="page-hero">
-                    <div className="container">
+                {/* Header */}
+                <div className="container">
+                    <div className="contact-header">
                         <h1>Contact Us</h1>
-                        <p>Get in touch with us for any inquiries or feedback</p>
+                        <p>Transparency and communication are at the heart of BIFPCL. Get in touch with our corporate or plant offices.</p>
                     </div>
-                </section>
+                </div>
 
-                <section className="contact-content">
-                    <div className="container">
-                        <div className="contact-grid">
-                            {/* Contact Form */}
-                            <div className="contact-form-section">
-                                <h2>Send us a Message</h2>
+                {/* Map */}
+                <div className="container">
+                    <div className="map-container">
+                        <div className="map-placeholder" style={{ backgroundImage: `url('/images/hero-1.png')` }}>
+                            <div className="map-search">
+                                <span>📍</span>
+                                <input type="text" defaultValue="Dhaka Corporate Office" placeholder="Find our offices" />
+                            </div>
+                            <div className="map-marker">
+                                <span>🏭</span>
+                                <div className="marker-label">Dhaka HQ</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                                {success ? (
-                                    <div className="success-message">
-                                        <span className="success-icon">✅</span>
-                                        <h3>Message Sent Successfully!</h3>
-                                        <p>Thank you for contacting us. We'll get back to you soon.</p>
-                                        <button onClick={() => setSuccess(false)} className="send-another">
-                                            Send Another Message
-                                        </button>
+                {/* Content Grid */}
+                <div className="container">
+                    <div className="contact-grid">
+                        {/* Offices Column */}
+                        <div className="offices-column">
+                            <h3>Our Offices</h3>
+
+                            {/* Office Cards */}
+                            <div className="office-cards">
+                                {OFFICES.map((office, i) => (
+                                    <div key={i} className="office-card">
+                                        <div className="office-icon">{office.icon}</div>
+                                        <div className="office-info">
+                                            <h4>{office.type}</h4>
+                                            <p>{office.address}</p>
+                                            <div className="contact-item">
+                                                <span>📞</span>
+                                                <span>{office.phone}</span>
+                                            </div>
+                                            <div className="contact-item">
+                                                <span>📧</span>
+                                                <span>{office.email}</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                ) : (
-                                    <form onSubmit={handleSubmit} className="contact-form">
-                                        <div className="form-row">
-                                            <div className="form-group">
-                                                <label htmlFor="name">Full Name *</label>
-                                                <input
-                                                    type="text"
-                                                    id="name"
-                                                    name="name"
-                                                    value={formData.name}
-                                                    onChange={handleChange}
-                                                    required
-                                                    placeholder="Your name"
-                                                />
-                                            </div>
-                                            <div className="form-group">
-                                                <label htmlFor="email">Email Address *</label>
-                                                <input
-                                                    type="email"
-                                                    id="email"
-                                                    name="email"
-                                                    value={formData.email}
-                                                    onChange={handleChange}
-                                                    required
-                                                    placeholder="your@email.com"
-                                                />
-                                            </div>
-                                        </div>
-
-                                        <div className="form-row">
-                                            <div className="form-group">
-                                                <label htmlFor="phone">Phone Number</label>
-                                                <input
-                                                    type="tel"
-                                                    id="phone"
-                                                    name="phone"
-                                                    value={formData.phone}
-                                                    onChange={handleChange}
-                                                    placeholder="+880 1XXX-XXXXXX"
-                                                />
-                                            </div>
-                                            <div className="form-group">
-                                                <label htmlFor="subject">Subject *</label>
-                                                <select
-                                                    id="subject"
-                                                    name="subject"
-                                                    value={formData.subject}
-                                                    onChange={handleChange}
-                                                    required
-                                                >
-                                                    <option value="">Select a subject</option>
-                                                    <option value="General Inquiry">General Inquiry</option>
-                                                    <option value="Tender Information">Tender Information</option>
-                                                    <option value="Career Opportunity">Career Opportunity</option>
-                                                    <option value="Media/Press">Media/Press</option>
-                                                    <option value="Other">Other</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div className="form-group full-width">
-                                            <label htmlFor="message">Your Message *</label>
-                                            <textarea
-                                                id="message"
-                                                name="message"
-                                                value={formData.message}
-                                                onChange={handleChange}
-                                                required
-                                                rows={6}
-                                                placeholder="Write your message here..."
-                                            />
-                                        </div>
-
-                                        {error && <div className="error-message">{error}</div>}
-
-                                        <button type="submit" className="submit-btn" disabled={loading}>
-                                            {loading ? 'Sending...' : 'Send Message'}
-                                        </button>
-                                    </form>
-                                )}
+                                ))}
                             </div>
 
-                            {/* Contact Info */}
-                            <div className="contact-info-section">
-                                <h2>Contact Information</h2>
-
-                                <div className="info-cards">
-                                    <div className="info-card">
-                                        <span className="info-icon">📍</span>
-                                        <h4>Address</h4>
-                                        <p>Rampal, Bagerhat, Bangladesh</p>
-                                    </div>
-
-                                    <div className="info-card">
-                                        <span className="info-icon">📧</span>
-                                        <h4>Email</h4>
-                                        <a href={`mailto:${COMPANY_INFO.email}`}>{COMPANY_INFO.email}</a>
-                                    </div>
-
-                                    <div className="info-card">
-                                        <span className="info-icon">📞</span>
-                                        <h4>Phone</h4>
-                                        <a href={`tel:${COMPANY_INFO.phone}`}>{COMPANY_INFO.phone}</a>
-                                    </div>
-
-                                    <div className="info-card">
-                                        <span className="info-icon">🕒</span>
-                                        <h4>Working Hours</h4>
-                                        <p>Sunday - Thursday: 9:00 AM - 5:00 PM</p>
-                                    </div>
+                            {/* Grievance */}
+                            <div className="grievance-card">
+                                <div className="grievance-header">
+                                    <span>⚖️</span>
+                                    <h3>Grievance Redressal</h3>
                                 </div>
+                                <p>For formal complaints and grievance procedures, please contact our designated officers.</p>
+                                <div className="grievance-item">
+                                    <p className="role">Grievance Redressal Officer (GRO)</p>
+                                    <p className="title">DGM (HR), BIFPCL</p>
+                                    <a href="mailto:gro@bifpcl.com">gro@bifpcl.com</a>
+                                </div>
+                                <div className="grievance-item">
+                                    <p className="role">Appellate Authority</p>
+                                    <p className="title">Chief General Manager (CGM)</p>
+                                    <a href="mailto:appeal@bifpcl.com">appeal@bifpcl.com</a>
+                                </div>
+                            </div>
+                        </div>
 
-                                {/* Map Placeholder */}
-                                <div className="map-placeholder">
-                                    <span className="map-icon">🗺️</span>
-                                    <p>Map will be displayed here</p>
+                        {/* Form Column */}
+                        <div className="form-column">
+                            <div className="form-card">
+                                <h3>Send an Inquiry</h3>
+                                <form className="inquiry-form" onSubmit={handleSubmit}>
+                                    <div className="form-row">
+                                        <div className="form-group">
+                                            <label>Full Name</label>
+                                            <input type="text" placeholder="Enter your name" />
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Email Address</label>
+                                            <input type="email" placeholder="name@company.com" />
+                                        </div>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Subject</label>
+                                        <select>
+                                            {SUBJECTS.map((sub, i) => (
+                                                <option key={i}>{sub}</option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Your Message</label>
+                                        <textarea placeholder="How can we help you?" rows={6}></textarea>
+                                    </div>
+                                    <div className="form-checkbox">
+                                        <input type="checkbox" id="terms" />
+                                        <label htmlFor="terms">I agree to the privacy policy and terms of service.</label>
+                                    </div>
+                                    <button type="submit" className="submit-btn">Submit Message →</button>
+                                </form>
+
+                                {/* Social */}
+                                <div className="social-section">
+                                    <h4>Connect With Us</h4>
+                                    <div className="social-links">
+                                        <a href="#">🌐 LinkedIn</a>
+                                        <a href="#">📘 Facebook</a>
+                                        <a href="#">🎬 YouTube</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </section>
+                </div>
             </main>
             <Footer />
         </>

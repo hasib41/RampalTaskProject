@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Media and News Center | BIFPCL</title>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Work Sans"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Work Sans", sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#0d121b] dark:text-white min-h-screen">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-[#e7ebf3] dark:border-gray-800 bg-white dark:bg-background-dark px-10 py-3 sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-[#0d121b] dark:text-white">
+<div class="size-8 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M39.475 21.6262C40.358 21.4363 40.6863 21.5589 40.7581 21.5934C40.7876 21.655 40.8547 21.857 40.8082 22.3336C40.7408 23.0255 40.4502 24.0046 39.8572 25.2301C38.6799 27.6631 36.5085 30.6631 33.5858 33.5858C30.6631 36.5085 27.6632 38.6799 25.2301 39.8572C24.0046 40.4502 23.0255 40.7407 22.3336 40.8082C21.8571 40.8547 21.6551 40.7875 21.5934 40.7581C21.5589 40.6863 21.4363 40.358 21.6262 39.475C21.8562 38.4054 22.4689 36.9657 23.5038 35.2817C24.7575 33.2417 26.5497 30.9744 28.7621 28.762C30.9744 26.5497 33.2417 24.7574 35.2817 23.5037C36.9657 22.4689 38.4054 21.8562 39.475 21.6262ZM4.41189 29.2403L18.7597 43.5881C19.8813 44.7097 21.4027 44.9179 22.7217 44.7893C24.0585 44.659 25.5148 44.1631 26.9723 43.4579C29.9052 42.0387 33.2618 39.5667 36.4142 36.4142C39.5667 33.2618 42.0387 29.9052 43.4579 26.9723C44.1631 25.5148 44.659 24.0585 44.7893 22.7217C44.9179 21.4027 44.7097 19.8813 43.5881 18.7597L29.2403 4.41187C27.8527 3.02428 25.8765 3.02573 24.2861 3.36776C22.6081 3.72863 20.7334 4.58419 18.8396 5.74801C16.4978 7.18716 13.9881 9.18353 11.5858 11.5858C9.18354 13.988 7.18717 16.4978 5.74802 18.8396C4.58421 20.7334 3.72865 22.6081 3.36778 24.2861C3.02574 25.8765 3.02429 27.8527 4.41189 29.2403Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-xl font-bold leading-tight tracking-[-0.015em]">BIFPCL</h2>
+</div>
+<nav class="hidden lg:flex items-center gap-9">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Home</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Projects</a>
+<a class="text-primary text-sm font-bold border-b-2 border-primary pb-1" href="#">Media &amp; News</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Tenders</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Careers</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Contact</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<label class="relative hidden sm:block">
+<span class="absolute inset-y-0 left-0 flex items-center pl-3">
+<span class="material-symbols-outlined text-gray-400 text-lg">search</span>
+</span>
+<input class="form-input w-64 bg-background-light dark:bg-gray-800 border-none rounded-lg pl-10 pr-4 py-2 text-sm focus:ring-2 focus:ring-primary" placeholder="Search news..."/>
+</label>
+<button class="bg-primary hover:bg-primary/90 text-white px-6 py-2 rounded-lg text-sm font-bold transition-all">
+                Login
+            </button>
+</div>
+</header>
+<main class="max-w-[1280px] mx-auto px-6 py-10">
+<!-- Hero Section: Latest News -->
+<section class="mb-12">
+<div class="@container">
+<div class="relative min-h-[520px] flex flex-col justify-end overflow-hidden rounded-xl bg-cover bg-center p-8 lg:p-16" data-alt="Industrial power plant at sunset with bright lights" style='background-image: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0.1) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuCSQ8D3_VEQl2Se8-dvaphecUYYPSkUU_qDqixXzAuIG5tqGEnrU4gJUIMHlTboU0DQXrRthRXiUewqB0V8UqaQbqx2Q1Un6EIv5sqvSIN1_4ZtGPidbNGSEUL8PhbeUQ1134GjnD3FaIE--Rgd_PciyGJqgbb-8LvVnVQM3gyZyuyL2n7oZJeMQr-4_RRsxnI12ZnEpnWrytE6um6ua1X7qZSVM77Ams7oIOtRVUAp9Z_2QWMuYkCgXN1BK0s_nkbnnkdrHLI-X8o");'>
+<div class="max-w-3xl space-y-4">
+<span class="bg-primary text-white text-xs font-bold uppercase tracking-wider px-3 py-1 rounded">Featured News</span>
+<h1 class="text-white text-4xl lg:text-6xl font-black leading-[1.1] tracking-tight">
+                            BIFPCL Achieves Major Milestone in Sustainable Energy Production
+                        </h1>
+<p class="text-gray-200 text-lg lg:text-xl font-normal max-w-2xl">
+                            Our latest supercritical power project has reached full operational capacity, marking a significant step towards energy security for the region.
+                        </p>
+<div class="flex gap-4 pt-4">
+<button class="bg-primary text-white px-8 py-3 rounded-lg font-bold hover:scale-105 transition-transform flex items-center gap-2">
+                                Read Full Story
+                                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+<button class="bg-white/20 backdrop-blur-md text-white border border-white/30 px-8 py-3 rounded-lg font-bold hover:bg-white/30 transition-all">
+                                Share Press Release
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Content Area with Sidebar -->
+<div class="flex flex-col lg:flex-row gap-12">
+<!-- News Feed -->
+<div class="flex-1">
+<div class="flex items-center justify-between mb-8 border-b border-gray-200 dark:border-gray-800 pb-4">
+<h2 class="text-2xl font-bold">Press Releases &amp; News</h2>
+<div class="flex gap-4">
+<button class="flex items-center gap-2 text-sm font-medium bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 px-4 py-2 rounded-lg">
+<span class="material-symbols-outlined text-lg">filter_list</span>
+                            Filter by Year
+                        </button>
+</div>
+</div>
+<!-- Tabs -->
+<div class="mb-8 overflow-x-auto">
+<div class="flex border-b border-gray-200 dark:border-gray-800 gap-8 min-w-max">
+<a class="border-b-2 border-primary text-primary pb-4 px-2 font-bold text-sm tracking-wide" href="#">All Updates</a>
+<a class="text-gray-500 hover:text-primary transition-colors pb-4 px-2 font-medium text-sm tracking-wide" href="#">Press Releases</a>
+<a class="text-gray-500 hover:text-primary transition-colors pb-4 px-2 font-medium text-sm tracking-wide" href="#">Tenders</a>
+<a class="text-gray-500 hover:text-primary transition-colors pb-4 px-2 font-medium text-sm tracking-wide" href="#">Events</a>
+<a class="text-gray-500 hover:text-primary transition-colors pb-4 px-2 font-medium text-sm tracking-wide" href="#">CSR Initiatives</a>
+</div>
+</div>
+<!-- News Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- News Item 1 -->
+<article class="group flex flex-col bg-white dark:bg-background-dark border border-gray-100 dark:border-gray-800 rounded-xl overflow-hidden hover:shadow-xl transition-all">
+<div class="aspect-video bg-cover bg-center overflow-hidden" data-alt="Modern office meeting with corporate professionals" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDB_poO8lDql-0dCAMoMugLf_JW1iIQJul5Ndv_y4OkLamlLh21JI5_m6mpDY5dBRcSlp3ngmV8NiDrSvr6YkP1joG9CcCV2ZJPQwmhm_p0Aso1vcnukLnmxlwO7wao3K045LqDpjvTznZAo93yknGs-7fvdDOlNC-BrjkFo-tK8odfazSMClpbg6dGtwhnttiaP-H6OW5nTryB3BXDLApXWAE6jaDOsngXWhDzu6Qwb5x_VBXO3WmxW-NqhGAvF2FmME2Wu3i2QlU");'></div>
+<div class="p-6 space-y-3">
+<span class="text-primary text-xs font-bold uppercase">Corporate</span>
+<h3 class="text-xl font-bold group-hover:text-primary transition-colors line-clamp-2">Quarterly Financial Performance Review Q3 2023</h3>
+<p class="text-gray-500 dark:text-gray-400 text-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-base">calendar_today</span>
+                                15 Oct 2023
+                            </p>
+<p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-3">
+                                BIFPCL announces robust financial results for the third quarter, driven by operational efficiency and increased demand in the regional power grid.
+                            </p>
+<a class="inline-flex items-center gap-1 text-primary text-sm font-bold pt-2 group" href="#">
+                                Read More
+                                <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</div>
+</article>
+<!-- News Item 2 -->
+<article class="group flex flex-col bg-white dark:bg-background-dark border border-gray-100 dark:border-gray-800 rounded-xl overflow-hidden hover:shadow-xl transition-all">
+<div class="aspect-video bg-cover bg-center overflow-hidden" data-alt="Green field with solar panels and wind turbines" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAy-ce8GrLKJT8xiQR8XqBWdp9bZzbUqzDH-YUb64M2aDz-hgQBFX4MIiWw7Vhmd5zklK7Cq6HrPKJPbSKQFJ9QY_l7HffLQKwPXN3rAkhHlBDyeUqSwjuJj7Xx7RM9TibzCywdwA2oMF6CbYQTdCcPVHgsIuorXCM8-t2rLPWKRolDLRnwWymFn3wJYDaR8W5NChy-3fwroIM4eRuFI6GfxVz6MXSAp4kPO51-dgWnHIfR6qaliWBLLj-Qih-xU_2oxF6r6lsVXaE");'></div>
+<div class="p-6 space-y-3">
+<span class="text-green-600 text-xs font-bold uppercase">Sustainability</span>
+<h3 class="text-xl font-bold group-hover:text-primary transition-colors line-clamp-2">New Environmental Initiative: Project Green Canopy</h3>
+<p class="text-gray-500 dark:text-gray-400 text-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-base">calendar_today</span>
+                                12 Oct 2023
+                            </p>
+<p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-3">
+                                Details on the new reforestation project surrounding our production sites, aiming to plant over 100,000 native trees by 2025.
+                            </p>
+<a class="inline-flex items-center gap-1 text-primary text-sm font-bold pt-2 group" href="#">
+                                Read More
+                                <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</div>
+</article>
+<!-- News Item 3 -->
+<article class="group flex flex-col bg-white dark:bg-background-dark border border-gray-100 dark:border-gray-800 rounded-xl overflow-hidden hover:shadow-xl transition-all">
+<div class="aspect-video bg-cover bg-center overflow-hidden" data-alt="Handshake between business professionals in suits" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDj-VWlzyMKudlB7C2isw8aqVceqIel5Bw_Cr4Ray9ApzI5d0gyQmGOHYEepsUC5tLIkAWi6OYt-C3HP0CTNVSE8YdiYW6nvcBEQe0Cu6J9QahtwKMYHL38W6d_ufObJqttawtV8VRDEmoNKxaCuTR3IL75h8_RZ8ZXkY7HXiXvx8-WUx6pdeMjGemdG2qPTCQY7MbXVl0PaDExiIEOQNWFfec9LK8xhwuNN7Ff3heV5jjVFw_ghcJola4dy-heNZx5ppkxhxo-3ag");'></div>
+<div class="p-6 space-y-3">
+<span class="text-primary text-xs font-bold uppercase">Partnership</span>
+<h3 class="text-xl font-bold group-hover:text-primary transition-colors line-clamp-2">BIFPCL Signs Strategic MOU with IEA</h3>
+<p class="text-gray-500 dark:text-gray-400 text-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-base">calendar_today</span>
+                                05 Oct 2023
+                            </p>
+<p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-3">
+                                Strengthening global ties for energy security and technological exchange through a new partnership with the International Energy Agency.
+                            </p>
+<a class="inline-flex items-center gap-1 text-primary text-sm font-bold pt-2 group" href="#">
+                                Read More
+                                <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</div>
+</article>
+<!-- News Item 4 -->
+<article class="group flex flex-col bg-white dark:bg-background-dark border border-gray-100 dark:border-gray-800 rounded-xl overflow-hidden hover:shadow-xl transition-all">
+<div class="aspect-video bg-cover bg-center overflow-hidden" data-alt="Architectural detail of a modern industrial building" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAmACtrQhbmfauVrtytyDpnQsAESIRFBusG_SN6azx7asqUM1DWuRzxyEdE-zzQsjXMn-cVY9Gd2oWGY7mO1RN80oRq0kWRDlJRyd4UVtduOgkSaHnF-pocO2USMBRijSsXoa9PhmC9ljKBost47xtkAeB_ML-U_eEuj-KR8nkDIzezKXvTkplgsqmZQV_0aEOXYDpkst0x5RGAPMGSZcsZ7ISrrZn-xZbAIIWiSh5Gm70-elbDJmffStuGwhO9hp6OdAYAf56Ns4M");'></div>
+<div class="p-6 space-y-3">
+<span class="text-primary text-xs font-bold uppercase">Innovation</span>
+<h3 class="text-xl font-bold group-hover:text-primary transition-colors line-clamp-2">Breakthrough in Clean Coal Technology Integration</h3>
+<p class="text-gray-500 dark:text-gray-400 text-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-base">calendar_today</span>
+                                28 Sep 2023
+                            </p>
+<p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-3">
+                                Our Research &amp; Development team has successfully piloted a new emission reduction system that exceeds current environmental standards.
+                            </p>
+<a class="inline-flex items-center gap-1 text-primary text-sm font-bold pt-2 group" href="#">
+                                Read More
+                                <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</div>
+</article>
+</div>
+<!-- Pagination -->
+<div class="mt-12 flex justify-center">
+<button class="flex items-center gap-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 px-8 py-3 rounded-lg font-bold hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                        Load More News
+                        <span class="material-symbols-outlined">expand_more</span>
+</button>
+</div>
+</div>
+<!-- Sidebar -->
+<aside class="w-full lg:w-[320px] flex flex-col gap-8">
+<!-- Category Sidebar -->
+<div class="bg-white dark:bg-background-dark rounded-xl border border-gray-200 dark:border-gray-800 p-6">
+<h3 class="text-lg font-bold mb-6 border-l-4 border-primary pl-3">Media Categories</h3>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center justify-between group p-2 rounded-lg hover:bg-background-light dark:hover:bg-gray-800" href="#">
+<span class="text-sm font-medium group-hover:text-primary transition-colors">Press Releases</span>
+<span class="text-xs bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-gray-500">24</span>
+</a>
+<a class="flex items-center justify-between group p-2 rounded-lg hover:bg-background-light dark:hover:bg-gray-800" href="#">
+<span class="text-sm font-medium group-hover:text-primary transition-colors">Project Updates</span>
+<span class="text-xs bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-gray-500">18</span>
+</a>
+<a class="flex items-center justify-between group p-2 rounded-lg hover:bg-background-light dark:hover:bg-gray-800" href="#">
+<span class="text-sm font-medium group-hover:text-primary transition-colors">Media Advisories</span>
+<span class="text-xs bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-gray-500">7</span>
+</a>
+<a class="flex items-center justify-between group p-2 rounded-lg hover:bg-background-light dark:hover:bg-gray-800" href="#">
+<span class="text-sm font-medium group-hover:text-primary transition-colors">Speeches</span>
+<span class="text-xs bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-gray-500">12</span>
+</a>
+<a class="flex items-center justify-between group p-2 rounded-lg hover:bg-background-light dark:hover:bg-gray-800" href="#">
+<span class="text-sm font-medium group-hover:text-primary transition-colors">Video Gallery</span>
+<span class="text-xs bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-gray-500">5</span>
+</a>
+</nav>
+</div>
+<!-- Media Kit Download Section -->
+<div class="bg-primary/5 dark:bg-primary/10 border border-primary/20 rounded-xl p-6">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary text-3xl">download_for_offline</span>
+<h3 class="text-lg font-bold">Media Kit</h3>
+</div>
+<p class="text-sm text-gray-600 dark:text-gray-300 mb-6">
+                        Download official company logos, high-resolution management photos, and corporate brand guidelines for press use.
+                    </p>
+<div class="space-y-3">
+<button class="w-full flex items-center justify-between bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-3 rounded-lg hover:border-primary transition-colors text-sm font-medium group">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">image</span>
+                                Brand Assets (.zip)
+                            </div>
+<span class="material-symbols-outlined text-gray-400 group-hover:text-primary">download</span>
+</button>
+<button class="w-full flex items-center justify-between bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-3 rounded-lg hover:border-primary transition-colors text-sm font-medium group">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">description</span>
+                                Corporate Profile (PDF)
+                            </div>
+<span class="material-symbols-outlined text-gray-400 group-hover:text-primary">download</span>
+</button>
+</div>
+<a class="block text-center text-primary text-xs font-bold mt-4 hover:underline" href="#">View Brand Guidelines</a>
+</div>
+<!-- Recent Tenders Widget -->
+<div class="bg-white dark:bg-background-dark rounded-xl border border-gray-200 dark:border-gray-800 p-6">
+<h3 class="text-lg font-bold mb-4">Latest Tenders</h3>
+<div class="space-y-4">
+<div class="border-b border-gray-100 dark:border-gray-800 pb-3 last:border-0">
+<a class="text-sm font-semibold hover:text-primary line-clamp-2" href="#">Supply of Spare Parts for Turbine Stage 1</a>
+<p class="text-[11px] text-gray-400 mt-1 uppercase">Deadline: 30 Nov 2023</p>
+</div>
+<div class="border-b border-gray-100 dark:border-gray-800 pb-3 last:border-0">
+<a class="text-sm font-semibold hover:text-primary line-clamp-2" href="#">Civil Works for New Substation Extension</a>
+<p class="text-[11px] text-gray-400 mt-1 uppercase">Deadline: 05 Dec 2023</p>
+</div>
+</div>
+<button class="w-full mt-4 text-xs font-bold text-gray-500 hover:text-primary uppercase tracking-widest flex items-center justify-center gap-1">
+                        View All Tenders
+                        <span class="material-symbols-outlined text-sm">open_in_new</span>
+</button>
+</div>
+<!-- Media Contact -->
+<div class="bg-gray-900 text-white rounded-xl p-6">
+<h3 class="text-lg font-bold mb-4">Media Relations</h3>
+<p class="text-xs text-gray-400 mb-6">For media inquiries and interview requests, please contact our corporate communications department.</p>
+<div class="space-y-4">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary">mail</span>
+<div>
+<p class="text-[11px] text-gray-500 font-bold uppercase tracking-wider">Email</p>
+<p class="text-sm font-medium">media@bifpcl.com</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary">call</span>
+<div>
+<p class="text-[11px] text-gray-500 font-bold uppercase tracking-wider">Phone</p>
+<p class="text-sm font-medium">+880 2-XXXXXXX</p>
+</div>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</main>
+<!-- Simple Footer -->
+<footer class="bg-white dark:bg-background-dark border-t border-gray-200 dark:border-gray-800 mt-20">
+<div class="max-w-[1280px] mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-4 gap-12">
+<div class="space-y-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-2xl">bolt</span>
+<h2 class="text-xl font-bold">BIFPCL</h2>
+</div>
+<p class="text-sm text-gray-500 leading-relaxed">
+                    Bangladesh-India Friendship Power Company (Pvt.) Limited. Committed to sustainable energy excellence.
+                </p>
+</div>
+<div>
+<h4 class="font-bold mb-6 text-sm uppercase tracking-widest">Quick Links</h4>
+<ul class="space-y-3 text-sm text-gray-500">
+<li><a class="hover:text-primary" href="#">Corporate Overview</a></li>
+<li><a class="hover:text-primary" href="#">Annual Reports</a></li>
+<li><a class="hover:text-primary" href="#">Board of Directors</a></li>
+<li><a class="hover:text-primary" href="#">Investor Relations</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold mb-6 text-sm uppercase tracking-widest">Newsroom</h4>
+<ul class="space-y-3 text-sm text-gray-500">
+<li><a class="hover:text-primary" href="#">Latest Press Releases</a></li>
+<li><a class="hover:text-primary" href="#">Media Image Library</a></li>
+<li><a class="hover:text-primary" href="#">Executive Biographies</a></li>
+<li><a class="hover:text-primary" href="#">Fact Sheets</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold mb-6 text-sm uppercase tracking-widest">Follow Us</h4>
+<div class="flex gap-4">
+<a class="size-10 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center hover:bg-primary hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">share</span>
+</a>
+<a class="size-10 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center hover:bg-primary hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">play_circle</span>
+</a>
+<a class="size-10 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center hover:bg-primary hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">group</span>
+</a>
+</div>
+</div>
+</div>
+<div class="border-t border-gray-100 dark:border-gray-800 text-center py-6">
+<p class="text-xs text-gray-400">© 2023 BIFPCL. All rights reserved. | Terms of Service | Privacy Policy</p>
+</div>
+</footer>
+</body></html>

@@ -5,7 +5,11 @@ import {
   CareersPage,
   NewsPage,
   ContactPage,
-  AboutPage
+  AboutPage,
+  BoardPage,
+  ProjectsPage,
+  ProjectDetailPage,
+  SustainabilityPage
 } from './pages';
 import './index.css';
 
@@ -15,6 +19,10 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/about/board" element={<BoardPage />} />
+        <Route path="/projects" element={<ProjectsPage />} />
+        <Route path="/projects/:id" element={<ProjectDetailPage />} />
+        <Route path="/sustainability" element={<SustainabilityPage />} />
         <Route path="/tenders" element={<TendersPage />} />
         <Route path="/careers" element={<CareersPage />} />
         <Route path="/news" element={<NewsPage />} />

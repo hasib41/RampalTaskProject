@@ -109,3 +109,104 @@ class ProjectStat(BaseModel):
 
     def __str__(self):
         return f"{self.label}: {self.value}{self.suffix}"
+
+
+class BoardMember(BaseModel):
+    """Board of Directors members."""
+    name = models.CharField(max_length=100)
+    title = models.CharField(max_length=200)
+    bio = models.TextField()
+    image_url = models.URLField(blank=True, null=True)
+    is_chairman = models.BooleanField(default=False)
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['order']
+        verbose_name_plural = 'Board Members'
+
+    def __str__(self):
+        return f"{self.name} - {self.title}"
+
+
+class Project(BaseModel):
+    """Power projects and operations."""
+    name = models.CharField(max_length=200)
+    location = models.CharField(max_length=200)
+    description = models.TextField()
+    capacity = models.CharField(max_length=50)  # e.g., "1320 MW"
+    status = models.CharField(max_length=50, choices=[
+        ('operational', 'Operational'),
+        ('construction', 'Under Construction'),
+        ('planning', 'Planning'),
+        ('maintenance', 'Maintenance'),
+    ])
+    category = models.CharField(max_length=50, choices=[
+        ('coal', 'Coal Power'),
+        ('solar', 'Solar Energy'),
+        ('wind', 'Wind Energy'),
+        ('hydro', 'Hydroelectric'),
+        ('transmission', 'Transmission'),
+    ])
+    image_url = models.URLField(blank=True, null=True)
+    efficiency = models.CharField(max_length=20, blank=True)
+    is_featured = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name_plural = 'Projects'
+
+    def __str__(self):
+        return f"{self.name} ({self.capacity})"
+
+
+class Milestone(BaseModel):
+    """Company milestones and timeline."""
+    year = models.PositiveIntegerField()
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['order', 'year']
+        verbose_name_plural = 'Milestones'
+
+    def __str__(self):
+        return f"{self.year}: {self.title}"
+
+
+class SustainabilityStat(BaseModel):
+    """CSR and sustainability statistics."""
+    label = models.CharField(max_length=100)
+    value = models.CharField(max_length=50)
+    trend = models.CharField(max_length=100, blank=True)
+    icon = models.CharField(max_length=10, default='🌱')
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['order']
+        verbose_name_plural = 'Sustainability Stats'
+
+    def __str__(self):
+        return f"{self.label}: {self.value}"
+
+
+class CSRInitiative(BaseModel):
+    """CSR initiatives and programs."""
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    category = models.CharField(max_length=50, choices=[
+        ('education', 'Education'),
+        ('health', 'Health'),
+        ('environment', 'Environment'),
+        ('livelihood', 'Livelihood'),
+    ])
+    impact_metric = models.CharField(max_length=200, blank=True)
+    image_url = models.URLField(blank=True, null=True)
+
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name_plural = 'CSR Initiatives'
+
+    def __str__(self):
+        return self.title
+

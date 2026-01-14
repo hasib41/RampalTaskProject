@@ -5,9 +5,11 @@ node_modules/
 dist/
 .vite/
 *.local
+.eslintcache
 
 # ==================== Python / Backend ====================
 venv/
+.venv/
 __pycache__/
 *.py[cod]
 *$py.class
@@ -15,21 +17,36 @@ __pycache__/
 db.sqlite3
 staticfiles/
 .env
+*.egg-info/
+.eggs/
+*.egg
 
 # ==================== IDE ====================
 .vscode/
 .idea/
 *.swp
 *.swo
+*.sublime-*
 
 # ==================== OS ====================
 .DS_Store
 Thumbs.db
+desktop.ini
 
 # ==================== Logs ====================
 *.log
 npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # ==================== Build ====================
 build/
 *.egg-info/
+
+# ==================== Test / Coverage ====================
+coverage/
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+
