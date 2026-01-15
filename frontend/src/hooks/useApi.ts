@@ -6,8 +6,28 @@
 import { useState, useEffect } from 'react';
 import {
     getTenders, getNews, getFeaturedNews, getCareers, getProjectStats,
+    getSustainabilityStats, getCSRInitiatives,
 } from '../services/api';
-import type { Tender, News, Career, ProjectStat } from '../services/api';
+import type { Tender, News, Career, ProjectStat, SustainabilityStat, CSRInitiative } from '../services/api';
+
+// ... (existing useApiData hook)
+
+// ... (existing hooks)
+
+/**
+ * Hook to fetch sustainability stats
+ */
+export function useSustainabilityStats() {
+    return useApiData<SustainabilityStat[]>(getSustainabilityStats);
+}
+
+/**
+ * Hook to fetch CSR initiatives
+ */
+export function useCSRInitiatives() {
+    return useApiData<CSRInitiative[]>(getCSRInitiatives);
+}
+
 
 // Generic hook for API calls
 function useApiData<T>(fetchFn: () => Promise<T>, dependencies: unknown[] = []) {

@@ -193,6 +193,45 @@ export async function getProject(id: number): Promise<Project> {
     return apiFetch<Project>(`/projects/${id}/`);
 }
 
+// ... types
+export interface SustainabilityStat {
+    id: number;
+    label: string;
+    value: string;
+    trend: string | null;
+    icon: string | null;
+    order: number;
+    is_active: boolean;
+}
+
+export interface CSRInitiative {
+    id: number;
+    title: string;
+    description: string;
+    category: 'education' | 'health' | 'environment' | 'livelihood' | 'infrastructure';
+    impact_metric: string | null;
+    image_url: string | null;
+    is_active: boolean;
+}
+
+// ... existing helper functions ...
+
+/**
+ * Get sustainability statistics
+ */
+export async function getSustainabilityStats(): Promise<SustainabilityStat[]> {
+    const data = await apiFetch<PaginatedResponse<SustainabilityStat> | SustainabilityStat[]>('/sustainability/');
+    return extractResults(data);
+}
+
+/**
+ * Get CSR initiatives
+ */
+export async function getCSRInitiatives(): Promise<CSRInitiative[]> {
+    const data = await apiFetch<PaginatedResponse<CSRInitiative> | CSRInitiative[]>('/csr/');
+    return extractResults(data);
+}
+
 /**
  * Get featured projects only
  */

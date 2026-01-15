@@ -1,18 +1,24 @@
 // Tenders Page - Procurement portal
 import { Header, Footer } from '../components/layout';
+import { useTenders } from '../hooks/useApi';
 import './TendersPage.css';
-
-// Tenders data
-const TENDERS = [
-    { id: 'TDR-2024-081', title: 'Supply of Solar PV Modules (Phase III)', status: 'Open', statusColor: 'green', pubDate: '12 Jan 2024', closeDate: '15 Feb 2024' },
-    { id: 'TDR-2024-094', title: 'Maintenance of High Pressure Turbine Units', status: 'Closing Soon', statusColor: 'yellow', pubDate: '15 Jan 2024', closeDate: '02 Feb 2024' },
-    { id: 'TDR-2024-102', title: 'IT Infrastructure Upgrade & Data Center Migration', status: 'Open', statusColor: 'green', pubDate: '18 Jan 2024', closeDate: '20 Mar 2024' },
-    { id: 'TDR-2024-115', title: 'Consultancy for Environmental Impact Assessment', status: 'Open', statusColor: 'green', pubDate: '22 Jan 2024', closeDate: '15 Mar 2024' },
-];
 
 const CATEGORIES = ['All Categories', 'Civil Works', 'Electrical', 'IT Services', 'Maintenance'];
 
 function TendersPage() {
+    const { data: tenders, loading, error } = useTenders();
+
+    const getStatus = (deadline: string) => {
+        const today = new Date();
+        const closeDate = new Date(deadline);
+        const diffTime = closeDate.getTime() - today.getTime();
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+        if (diffDays < 0) return { label: 'Closed', color: 'red' };
+        if (diffDays <= 7) return { label: 'Closing Soon', color: 'yellow' };
+        return { label: 'Open', color: 'green' };
+    };
+
     return (
         <>
             <Header />
@@ -45,39 +51,65 @@ function TendersPage() {
                     <div className="table-container">
                         <div className="table-header">
                             <h3>Active Tender Listings</h3>
-                            <span>Showing {TENDERS.length} of 28 tenders</span>
+                            <span>Showing {tenders?.length || 0} tenders</span>
                         </div>
-                        <table className="tenders-table">
-                            <thead>
-                                <tr>
-                                    <th>Tender ID</th>
-                                    <th>Tender Title</th>
-                                    <th>Publication Date</th>
-                                    <th>Closing Date</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {TENDERS.map((tender) => (
-                                    <tr key={tender.id}>
-                                        <td className="tender-id">{tender.id}</td>
-                                        <td>
-                                            <div className="tender-title">{tender.title}</div>
-                                            <span className={`tender-status ${tender.statusColor}`}>Status: {tender.status}</span>
-                                        </td>
-                                        <td className="date">{tender.pubDate}</td>
-                                        <td className="date">{tender.closeDate}</td>
-                                        <td>
-                                            <a href="#" className="download-link">📥 PDF</a>
-                                        </td>
+
+                        {loading && <div className="loading-spinner" style={{ margin: '40px auto' }}></div>}
+
+                        {error && (
+                            <div className="error-message text-center" style={{ padding: '40px' }}>
+                                <p className="text-muted">Unable to load tenders. Please try again later.</p>
+                            </div>
+                        )}
+
+                        {!loading && !error && tenders?.length === 0 && (
+                            <div className="no-data-message text-center" style={{ padding: '40px' }}>
+                                <p className="text-muted">No active tenders found.</p>
+                            </div>
+                        )}
+
+                        {!loading && !error && tenders && tenders.length > 0 && (
+                            <table className="tenders-table">
+                                <thead>
+                                    <tr>
+                                        <th>Tender ID</th>
+                                        <th>Tender Title</th>
+                                        <th>Publication Date</th>
+                                        <th>Closing Date</th>
+                                        <th>Actions</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    {tenders.map((tender) => {
+                                        const status = getStatus(tender.deadline);
+                                        return (
+                                            <tr key={tender.id}>
+                                                <td className="tender-id">{tender.reference_number}</td>
+                                                <td>
+                                                    <div className="tender-title">{tender.title}</div>
+                                                    <span className={`tender-status ${status.color}`}>Status: {status.label}</span>
+                                                </td>
+                                                <td className="date">{new Date(tender.created_at).toLocaleDateString()}</td>
+                                                <td className="date">{new Date(tender.deadline).toLocaleDateString()}</td>
+                                                <td>
+                                                    {tender.document_url ? (
+                                                        <a href={tender.document_url} className="download-link" target="_blank" rel="noopener noreferrer">📥 PDF</a>
+                                                    ) : (
+                                                        <span className="text-muted" style={{ fontSize: '0.9rem' }}>No PDF</span>
+                                                    )}
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
+                        )}
+
                         <div className="table-footer">
                             <button>Load More Tenders</button>
                         </div>
                     </div>
+
 
                     {/* Bottom Grid */}
                     <div className="bottom-grid">

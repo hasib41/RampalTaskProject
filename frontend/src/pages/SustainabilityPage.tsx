@@ -3,17 +3,11 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Header, Footer } from '../components/layout';
 import { COMPANY_INFO } from '../constants';
+import { useSustainabilityStats, useCSRInitiatives } from '../hooks/useApi';
+import type { SustainabilityStat, CSRInitiative } from '../services/api';
 import './SustainabilityPage.css';
 
-// Sustainability stats with animated counters
-const IMPACT_STATS = [
-    { id: 1, icon: '🌳', value: 542000, suffix: '+', label: 'Trees Planted', trend: '+15.4% YoY', color: 'green' },
-    { id: 2, icon: '💧', value: 88, suffix: '%', label: 'Water Recycled', trend: 'Zero Liquid Discharge', color: 'blue' },
-    { id: 3, icon: '🌍', value: 22, suffix: '%', label: 'Carbon Reduction', trend: 'Ultra-supercritical Tech', color: 'teal' },
-    { id: 4, icon: '🤝', value: 15, suffix: ' Cr+', label: 'CSR Investment', trend: 'Annual Budget', color: 'purple' },
-];
-
-// Environment initiatives
+// Environment initiatives (Static for now as they are site-specific features)
 const ENVIRONMENT_INITIATIVES = [
     {
         icon: '🌬️',
@@ -45,43 +39,7 @@ const ENVIRONMENT_INITIATIVES = [
     },
 ];
 
-// CSR Programs
-const CSR_PROGRAMS = [
-    {
-        id: 1,
-        icon: '🎓',
-        title: 'Education Support',
-        description: 'Scholarships for 500+ local students annually, school infrastructure upgrades, and computer lab installations.',
-        metric: '5,000+ Students Benefited',
-        image: '/images/csr-education.png',
-    },
-    {
-        id: 2,
-        icon: '🏥',
-        title: 'Mobile Health Clinics',
-        description: 'Free primary healthcare to 12 villages weekly via dedicated mobile medical units with qualified doctors.',
-        metric: '50,000+ Patients Annually',
-        image: '/images/csr-health.png',
-    },
-    {
-        id: 3,
-        icon: '💼',
-        title: 'Skill Development',
-        description: 'Vocational training in electrical, welding, and technical skills for local youth employment.',
-        metric: '1,000+ Trained Annually',
-        image: '/images/hero-2.png',
-    },
-    {
-        id: 4,
-        icon: '💧',
-        title: 'Clean Water Access',
-        description: 'Deep tube wells and water purification systems installed in nearby villages.',
-        metric: '15 Villages Covered',
-        image: '/images/hero-3.png',
-    },
-];
-
-// Safety achievements
+// Safety achievements (Static for now)
 const SAFETY_MILESTONES = [
     { icon: '🛡️', value: '10M+', label: 'Safe Man-Hours', description: 'Zero LTI since commercial operation' },
     { icon: '✓', value: 'ISO', label: 'Certified', description: 'ISO 14001 & ISO 45001 compliant' },
@@ -90,7 +48,10 @@ const SAFETY_MILESTONES = [
 ];
 
 // Animated counter hook
-function useCountUp(end: number, duration: number = 2000, start: number = 0) {
+function useCountUp(end: number | string, duration: number = 2000, start: number = 0) {
+    // Extract numeric part if possible
+    const numericEnd = typeof end === 'number' ? end : parseFloat(String(end).replace(/[^0-9.]/g, '')) || 0;
+
     const [count, setCount] = useState(start);
     const [isVisible, setIsVisible] = useState(false);
     const ref = useRef<HTMLDivElement>(null);
@@ -119,47 +80,76 @@ function useCountUp(end: number, duration: number = 2000, start: number = 0) {
         const animate = (timestamp: number) => {
             if (!startTime) startTime = timestamp;
             const progress = Math.min((timestamp - startTime) / duration, 1);
-            setCount(Math.floor(progress * (end - start) + start));
+            setCount(Math.floor(progress * (numericEnd - start) + start));
             if (progress < 1) {
                 requestAnimationFrame(animate);
             }
         };
         requestAnimationFrame(animate);
-    }, [isVisible, end, start, duration]);
+    }, [isVisible, numericEnd, start, duration]);
 
     return { count, ref };
 }
 
-// Separate component to properly call useCountUp hook
-interface ImpactStat {
-    id: number;
-    icon: string;
-    value: number;
-    suffix: string;
-    label: string;
-    trend: string;
-    color: string;
-}
-
-function ImpactCard({ stat }: { stat: ImpactStat }) {
+function ImpactCard({ stat }: { stat: SustainabilityStat & { color: string, suffix: string } }) {
+    // If value is non-numeric string (like "542000+"), useCountUp handles extracting number
     const { count, ref } = useCountUp(stat.value);
+
+    // Determine display value: if original had non-numeric chars, assume it was formatted
+    const numericVal = parseFloat(String(stat.value).replace(/[^0-9.]/g, ''));
+    const isFormatted = String(stat.value) !== String(numericVal);
+
     return (
         <div className={`impact-card ${stat.color}`} ref={ref}>
-            <span className="impact-icon">{stat.icon}</span>
+            <span className="impact-icon">{stat.icon || '🌱'}</span>
             <div className="impact-value">
-                {stat.value > 1000 ? count.toLocaleString() : count}
+                {numericVal > 1000 ? count.toLocaleString() : count}
                 <span className="suffix">{stat.suffix}</span>
             </div>
             <p className="impact-label">{stat.label}</p>
             <div className="impact-trend">
-                <span>📈</span> {stat.trend}
+                <span>📈</span> {stat.trend || 'Positive Impact'}
             </div>
         </div>
     );
 }
 
 function SustainabilityPage() {
+    const { data: stats, loading: statsLoading } = useSustainabilityStats();
+    const { data: csrInitiatives, loading: csrLoading } = useCSRInitiatives();
     const [activeProgram, setActiveProgram] = useState(0);
+
+    const mapCategoryIcon = (category: string) => {
+        const map: Record<string, string> = {
+            education: '🎓',
+            health: '🏥',
+            environment: '♻️',
+            livelihood: '💼',
+            infrastructure: '🏗️',
+        };
+        return map[category] || '🌟';
+    };
+
+    // Helper to augment API stats with display properties
+    const enrichedStats = (stats || []).map((s, i) => {
+        const colors = ['green', 'blue', 'teal', 'purple'];
+        // Extract suffix roughly
+        const valStr = String(s.value);
+        const numericPart = parseFloat(valStr.replace(/[^0-9.]/g, ''));
+        const suffix = valStr.replace(String(numericPart), '') || '+';
+
+        return {
+            ...s,
+            color: colors[i % colors.length],
+            suffix: suffix
+        };
+    }).sort((a, b) => a.order - b.order);
+
+    const activeCsr = csrInitiatives && csrInitiatives.length > 0 ? csrInitiatives[activeProgram] : null;
+
+    if (statsLoading || csrLoading) {
+        return <div className="loading-screen"><div className="spinner"></div></div>;
+    }
 
     return (
         <>
@@ -200,9 +190,11 @@ function SustainabilityPage() {
                             <span className="update-badge">Updated Q4 2025</span>
                         </div>
                         <div className="impact-grid">
-                            {IMPACT_STATS.map((stat) => (
+                            {enrichedStats.length > 0 ? enrichedStats.map((stat) => (
                                 <ImpactCard key={stat.id} stat={stat} />
-                            ))}
+                            )) : (
+                                <p className="text-center w-full">No stats available.</p>
+                            )}
                         </div>
                     </div>
                 </section>
@@ -245,35 +237,45 @@ function SustainabilityPage() {
                             </p>
                         </div>
                         <div className="csr-content">
-                            <div className="csr-tabs">
-                                {CSR_PROGRAMS.map((program, index) => (
-                                    <button
-                                        key={program.id}
-                                        className={`csr-tab ${activeProgram === index ? 'active' : ''}`}
-                                        onClick={() => setActiveProgram(index)}
-                                    >
-                                        <span className="tab-icon">{program.icon}</span>
-                                        <span className="tab-title">{program.title}</span>
-                                    </button>
-                                ))}
-                            </div>
-                            <div className="csr-detail">
-                                <div
-                                    className="csr-image"
-                                    style={{ backgroundImage: `url(${CSR_PROGRAMS[activeProgram].image})` }}
-                                >
-                                    <div className="csr-metric">
-                                        {CSR_PROGRAMS[activeProgram].metric}
+                            {csrInitiatives && csrInitiatives.length > 0 ? (
+                                <>
+                                    <div className="csr-tabs">
+                                        {csrInitiatives.map((program, index) => (
+                                            <button
+                                                key={program.id}
+                                                className={`csr-tab ${activeProgram === index ? 'active' : ''}`}
+                                                onClick={() => setActiveProgram(index)}
+                                            >
+                                                <span className="tab-icon">{mapCategoryIcon(program.category)}</span>
+                                                <span className="tab-title">{program.title}</span>
+                                            </button>
+                                        ))}
                                     </div>
+                                    {activeCsr && (
+                                        <div className="csr-detail">
+                                            <div
+                                                className="csr-image"
+                                                style={{ backgroundImage: `url(${activeCsr.image_url || '/images/hero-1.png'})` }}
+                                            >
+                                                <div className="csr-metric">
+                                                    {activeCsr.impact_metric || 'Ongoing Project'}
+                                                </div>
+                                            </div>
+                                            <div className="csr-info">
+                                                <h3>{activeCsr.title}</h3>
+                                                <p>{activeCsr.description}</p>
+                                                <Link to="/contact" className="csr-link">
+                                                    Learn More <span>→</span>
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    )}
+                                </>
+                            ) : (
+                                <div className="text-center py-10">
+                                    <p>No CSR initiatives found at the moment.</p>
                                 </div>
-                                <div className="csr-info">
-                                    <h3>{CSR_PROGRAMS[activeProgram].title}</h3>
-                                    <p>{CSR_PROGRAMS[activeProgram].description}</p>
-                                    <Link to="/contact" className="csr-link">
-                                        Learn More <span>→</span>
-                                    </Link>
-                                </div>
-                            </div>
+                            )}
                         </div>
                     </div>
                 </section>
@@ -331,3 +333,4 @@ function SustainabilityPage() {
 }
 
 export default SustainabilityPage;
+
