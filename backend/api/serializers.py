@@ -5,7 +5,8 @@ API Serializers - Convert models to/from JSON.
 from rest_framework import serializers
 from .models import (
     Tender, News, Career, ContactMessage, ProjectStat,
-    BoardMember, SustainabilityStat, Project, Milestone, CSRInitiative
+    BoardMember, SustainabilityStat, Project, Milestone, CSRInitiative,
+    JobApplication
 )
 
 
@@ -120,3 +121,17 @@ class CSRInitiativeSerializer(serializers.ModelSerializer):
             'impact_metric', 'image_url', 'is_active', 'created_at'
         ]
         read_only_fields = ['id', 'created_at']
+
+
+class JobApplicationSerializer(serializers.ModelSerializer):
+    """Serializer for JobApplication model."""
+    career_title = serializers.CharField(source='career.title', read_only=True)
+    
+    class Meta:
+        model = JobApplication
+        fields = [
+            'id', 'career', 'career_title', 'name', 'email', 'phone',
+            'cover_letter', 'resume_url', 'experience_years',
+            'current_position', 'is_reviewed', 'created_at'
+        ]
+        read_only_fields = ['id', 'created_at', 'is_reviewed', 'career_title']

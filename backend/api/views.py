@@ -10,13 +10,15 @@ from rest_framework.permissions import AllowAny, IsAdminUser
 
 from .models import (
     Tender, News, Career, ContactMessage, ProjectStat,
-    BoardMember, SustainabilityStat, Project, Milestone, CSRInitiative
+    BoardMember, SustainabilityStat, Project, Milestone, CSRInitiative,
+    JobApplication
 )
 from .serializers import (
     TenderSerializer, NewsSerializer, CareerSerializer,
     ContactMessageSerializer, ProjectStatSerializer,
     BoardMemberSerializer, SustainabilityStatSerializer,
-    ProjectSerializer, MilestoneSerializer, CSRInitiativeSerializer
+    ProjectSerializer, MilestoneSerializer, CSRInitiativeSerializer,
+    JobApplicationSerializer
 )
 
 
@@ -156,3 +158,25 @@ class CSRInitiativeViewSet(viewsets.ModelViewSet):
             return CSRInitiative.objects.filter(is_active=True)
         return CSRInitiative.objects.all()
 
+
+class JobApplicationViewSet(viewsets.ModelViewSet):
+    """API endpoint for Job Applications - Create and List."""
+    queryset = JobApplication.objects.all()
+    serializer_class = JobApplicationSerializer
+    permission_classes = [AllowAny]
+
+    def get_queryset(self):
+        """List all applications for admin, or filter by career."""
+        queryset = JobApplication.objects.all().select_related('career')
+        career_id = self.request.query_params.get('career', None)
+        if career_id:
+            queryset = queryset.filter(career_id=career_id)
+        return queryset
+
+    @action(detail=True, methods=['post'])
+    def mark_reviewed(self, request, pk=None):
+        """Mark an application as reviewed."""
+        application = self.get_object()
+        application.is_reviewed = True
+        application.save()
+        return Response({'status': 'marked as reviewed'})

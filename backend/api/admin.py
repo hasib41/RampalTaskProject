@@ -9,7 +9,8 @@ from django.utils.html import format_html
 from django.db.models import Count
 from .models import (
     Tender, News, Career, ContactMessage, ProjectStat,
-    BoardMember, Project, Milestone, SustainabilityStat, CSRInitiative
+    BoardMember, Project, Milestone, SustainabilityStat, CSRInitiative,
+    JobApplication
 )
 
 
@@ -439,3 +440,56 @@ class CSRInitiativeAdmin(ActiveStatusMixin, admin.ModelAdmin):
             colors.get(obj.category, '#6b7280'),
             obj.get_category_display()
         )
+
+
+# ==================== Job Application Admin ====================
+
+@admin.register(JobApplication)
+class JobApplicationAdmin(admin.ModelAdmin):
+    list_display = ['name', 'email', 'career_title', 'experience_years', 'review_status', 'created_at']
+    list_filter = ['is_reviewed', 'career', 'created_at']
+    search_fields = ['name', 'email', 'phone', 'current_position', 'career__title']
+    readonly_fields = ['name', 'email', 'phone', 'cover_letter', 'resume_url', 
+                       'experience_years', 'current_position', 'career', 'created_at']
+    ordering = ['-created_at']
+    list_per_page = 30
+    date_hierarchy = 'created_at'
+    actions = ['mark_as_reviewed', 'mark_as_unreviewed']
+    
+    fieldsets = (
+        ('👤 Applicant Information', {
+            'fields': ('name', 'email', 'phone', 'current_position')
+        }),
+        ('💼 Applied Position', {
+            'fields': ('career', 'experience_years')
+        }),
+        ('📝 Application Details', {
+            'fields': ('cover_letter', 'resume_url')
+        }),
+        ('📅 Metadata', {
+            'fields': ('created_at', 'is_reviewed')
+        }),
+    )
+    
+    @admin.display(description='Position')
+    def career_title(self, obj):
+        return obj.career.title
+    
+    @admin.display(description='Status')
+    def review_status(self, obj):
+        if obj.is_reviewed:
+            return format_html('<span style="color: #22c55e;">✓ Reviewed</span>')
+        return format_html('<span style="color: #ef4444; font-weight: bold;">🔴 Pending</span>')
+    
+    @admin.action(description='✓ Mark as Reviewed')
+    def mark_as_reviewed(self, request, queryset):
+        count = queryset.update(is_reviewed=True)
+        self.message_user(request, f'✓ {count} application(s) marked as reviewed.')
+    
+    @admin.action(description='Mark as Unreviewed')
+    def mark_as_unreviewed(self, request, queryset):
+        count = queryset.update(is_reviewed=False)
+        self.message_user(request, f'{count} application(s) marked as unreviewed.')
+    
+    def has_add_permission(self, request):
+        return False  # Applications are from frontend only

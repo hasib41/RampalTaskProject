@@ -9,6 +9,7 @@ const NAV_ITEMS = [
     { path: '/admin/news', label: 'News Articles', icon: '📰' },
     { path: '/admin/tenders', label: 'Tenders', icon: '📋' },
     { path: '/admin/careers', label: 'Job Postings', icon: '💼' },
+    { path: '/admin/applications', label: 'Applications', icon: '📄', badge: true },
     { path: '/admin/projects', label: 'Projects', icon: '🏭' },
     { path: '/admin/messages', label: 'Messages', icon: '✉️', badge: true },
     { path: '/admin/board', label: 'Board Members', icon: '👥' },

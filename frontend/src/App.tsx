@@ -23,6 +23,7 @@ import {
   AdminProjects,
   AdminBoard,
   AdminSustainability,
+  AdminApplications,
 } from './pages/admin';
 import './index.css';
 
@@ -50,6 +51,7 @@ function App() {
           <Route path="news" element={<AdminNews />} />
           <Route path="tenders" element={<AdminTenders />} />
           <Route path="careers" element={<AdminCareers />} />
+          <Route path="applications" element={<AdminApplications />} />
           <Route path="messages" element={<AdminMessages />} />
           <Route path="projects" element={<AdminProjects />} />
           <Route path="board" element={<AdminBoard />} />

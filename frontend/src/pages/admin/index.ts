@@ -9,4 +9,5 @@ export { default as AdminMessages } from './AdminMessages';
 export { default as AdminProjects } from './AdminProjects';
 export { default as AdminBoard } from './AdminBoard';
 export { default as AdminSustainability } from './AdminSustainability';
+export { default as AdminApplications } from './AdminApplications';
 

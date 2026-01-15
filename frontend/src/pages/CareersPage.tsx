@@ -1,6 +1,9 @@
 // Careers Page - Recruitment portal
+import { useState } from 'react';
 import { Header, Footer } from '../components/layout';
 import { useCareers } from '../hooks/useApi';
+import JobApplicationModal from '../components/JobApplicationModal';
+import type { Career } from '../services/api';
 import './CareersPage.css';
 
 // Careers data
@@ -19,6 +22,15 @@ const BENEFITS = [
 
 function CareersPage() {
     const { data: careers, loading, error } = useCareers();
+    const [selectedJob, setSelectedJob] = useState<Career | null>(null);
+
+    const handleApplyClick = (job: Career) => {
+        setSelectedJob(job);
+    };
+
+    const handleCloseModal = () => {
+        setSelectedJob(null);
+    };
 
     return (
         <>
@@ -93,7 +105,12 @@ function CareersPage() {
                                             <span style={{ textTransform: 'capitalize' }}>⏰ {job.job_type.replace('_', ' ')}</span>
                                         </div>
                                     </div>
-                                    <button className="apply-btn">Apply Now</button>
+                                    <button
+                                        className="apply-btn"
+                                        onClick={() => handleApplyClick(job)}
+                                    >
+                                        Apply Now
+                                    </button>
                                 </div>
                             ))}
                         </div>
@@ -129,6 +146,14 @@ function CareersPage() {
                 </section>
             </main >
             <Footer />
+
+            {/* Job Application Modal */}
+            {selectedJob && (
+                <JobApplicationModal
+                    job={selectedJob}
+                    onClose={handleCloseModal}
+                />
+            )}
         </>
     );
 }

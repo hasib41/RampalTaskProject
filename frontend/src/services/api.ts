@@ -239,3 +239,27 @@ export async function getFeaturedProjects(): Promise<Project[]> {
     const data = await apiFetch<PaginatedResponse<Project> | Project[]>('/projects/?is_featured=true');
     return extractResults(data);
 }
+
+
+// ==================== Job Application ====================
+
+export interface JobApplicationData {
+    career: number;
+    name: string;
+    email: string;
+    phone: string;
+    cover_letter?: string;
+    resume_url?: string;
+    experience_years?: number;
+    current_position?: string;
+}
+
+/**
+ * Submit a job application
+ */
+export async function submitJobApplication(data: JobApplicationData): Promise<{ id: number }> {
+    return apiFetch('/applications/', {
+        method: 'POST',
+        body: JSON.stringify(data),
+    });
+}

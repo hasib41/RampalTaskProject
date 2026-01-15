@@ -210,3 +210,26 @@ class CSRInitiative(BaseModel):
     def __str__(self):
         return self.title
 
+
+class JobApplication(BaseModel):
+    """Job application submissions."""
+    career = models.ForeignKey(
+        Career,
+        on_delete=models.CASCADE,
+        related_name='applications'
+    )
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    phone = models.CharField(max_length=20)
+    cover_letter = models.TextField(blank=True)
+    resume_url = models.URLField(blank=True)  # For external resume links (optional)
+    experience_years = models.PositiveIntegerField(default=0)
+    current_position = models.CharField(max_length=100, blank=True)
+    is_reviewed = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name_plural = 'Job Applications'
+
+    def __str__(self):
+        return f"{self.name} - {self.career.title}"

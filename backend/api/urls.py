@@ -10,7 +10,8 @@ from .views import (
     TenderViewSet, NewsViewSet, CareerViewSet,
     ContactMessageViewSet, ProjectStatViewSet,
     BoardMemberViewSet, SustainabilityStatViewSet,
-    ProjectViewSet, MilestoneViewSet, CSRInitiativeViewSet
+    ProjectViewSet, MilestoneViewSet, CSRInitiativeViewSet,
+    JobApplicationViewSet
 )
 
 # Create router and register viewsets
@@ -25,6 +26,7 @@ router.register(r'sustainability', SustainabilityStatViewSet, basename='sustaina
 router.register(r'projects', ProjectViewSet, basename='project')
 router.register(r'milestones', MilestoneViewSet, basename='milestone')
 router.register(r'csr', CSRInitiativeViewSet, basename='csr')
+router.register(r'applications', JobApplicationViewSet, basename='application')
 
 # URL patterns
 urlpatterns = [
