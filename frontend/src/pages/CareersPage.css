@@ -8,10 +8,10 @@
 /* Hero */
 .careers-hero {
     position: relative;
-    min-height: 500px;
+    min-height: 600px;
     display: flex;
     align-items: center;
-    padding: 48px;
+    padding: 0;
     margin: 24px;
     border-radius: 16px;
     overflow: hidden;
@@ -27,21 +27,27 @@
 .careers-hero-content {
     position: relative;
     z-index: 1;
-    max-width: 700px;
+    max-width: 800px;
     color: #fff;
+    padding: 64px 80px;
+    /* Ensure content is readable on left side */
 }
 
 .careers-hero-content h1 {
-    font-size: clamp(32px, 5vw, 56px);
+    font-size: clamp(40px, 5vw, 64px);
     font-weight: 900;
     line-height: 1.1;
-    margin-bottom: 16px;
+    margin-bottom: 24px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    color: #fff;
 }
 
 .careers-hero-content p {
-    font-size: 18px;
-    color: rgba(255, 255, 255, 0.9);
-    margin-bottom: 24px;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 32px;
+    line-height: 1.6;
+    max-width: 600px;
 }
 
 .careers-hero-actions {

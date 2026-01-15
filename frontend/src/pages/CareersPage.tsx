@@ -1,5 +1,6 @@
 // Careers Page - Recruitment portal
 import { Header, Footer } from '../components/layout';
+import { useCareers } from '../hooks/useApi';
 import './CareersPage.css';
 
 // Careers data
@@ -7,12 +8,6 @@ const CULTURE_ITEMS = [
     { title: 'Cutting-edge Technology', description: 'Work with the latest in ultra-supercritical thermal power technology.', image: '/images/hero-1.png' },
     { title: 'Collaborative Culture', description: 'A diverse team of experts from two nations working as one.', image: '/images/hero-2.png' },
     { title: 'Sustainability Focus', description: 'Our commitment to environmental responsibility and social impact.', image: '/images/hero-3.png' },
-];
-
-const JOB_OPENINGS = [
-    { id: 1, title: 'Plant Operations Manager', department: 'Operations', location: 'Maitree Power Plant', type: 'Full-time' },
-    { id: 2, title: 'Senior Safety Officer (HSE)', department: 'HSE & Compliance', location: 'Khulna, BD', type: 'Full-time' },
-    { id: 3, title: 'IT Systems Administrator', department: 'IT & Systems', location: 'Dhaka Office', type: 'Full-time' },
 ];
 
 const BENEFITS = [
@@ -23,13 +18,15 @@ const BENEFITS = [
 ];
 
 function CareersPage() {
+    const { data: careers, loading, error } = useCareers();
+
     return (
         <>
             <Header />
             <main className="careers-page">
                 {/* Hero */}
                 <section className="careers-hero">
-                    <div className="careers-hero-bg" style={{ backgroundImage: `linear-gradient(rgba(19,91,236,0.4), rgba(16,22,34,0.9)), url('/images/hero-1.png')` }}></div>
+                    <div className="careers-hero-bg" style={{ backgroundImage: `linear-gradient(to right, rgba(16,22,34,0.95) 0%, rgba(16,22,34,0.7) 50%, rgba(16,22,34,0.3) 100%), url('/images/careers-hero-bg.png')` }}></div>
                     <div className="careers-hero-content">
                         <h1>Powering Progress, Empowering Talent</h1>
                         <p>Join the team at Bangladesh-India Friendship Power Company Limited and help shape the future of sustainable energy.</p>
@@ -72,14 +69,28 @@ function CareersPage() {
 
                         {/* Job Listings */}
                         <div className="job-list">
-                            {JOB_OPENINGS.map((job) => (
+                            {loading && <div className="loading-spinner" style={{ margin: '0 auto' }}></div>}
+
+                            {error && (
+                                <div className="error-message text-center">
+                                    <p className="text-muted">Unable to load job openings. Please try again later.</p>
+                                </div>
+                            )}
+
+                            {!loading && !error && careers?.length === 0 && (
+                                <div className="no-jobs-message text-center">
+                                    <p className="text-muted">No current openings. Please check back later or submit your CV below.</p>
+                                </div>
+                            )}
+
+                            {!loading && !error && careers?.map((job) => (
                                 <div key={job.id} className="job-card">
                                     <div className="job-info">
                                         <h3>{job.title}</h3>
                                         <div className="job-meta">
                                             <span>💼 {job.department}</span>
                                             <span>📍 {job.location}</span>
-                                            <span>⏰ {job.type}</span>
+                                            <span style={{ textTransform: 'capitalize' }}>⏰ {job.job_type.replace('_', ' ')}</span>
                                         </div>
                                     </div>
                                     <button className="apply-btn">Apply Now</button>
@@ -116,7 +127,7 @@ function CareersPage() {
                         </div>
                     </div>
                 </section>
-            </main>
+            </main >
             <Footer />
         </>
     );
