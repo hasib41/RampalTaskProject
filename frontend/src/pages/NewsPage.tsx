@@ -1,73 +1,77 @@
 // News Page - Media and News Center
 import { Link } from 'react-router-dom';
 import { Header, Footer } from '../components/layout';
+import { useNews, useFeaturedNews } from '../hooks/useApi';
 import './NewsPage.css';
 
-// News data
-const FEATURED_NEWS = {
-    title: 'BIFPCL Achieves Major Milestone in Sustainable Energy Production',
-    description: 'Our latest supercritical power project has reached full operational capacity, marking a significant step towards energy security for the region.',
-    image: '/images/hero-1.png',
+const CATEGORIES = [
+    { name: 'Press Releases', count: 0 },
+    { name: 'Project Updates', count: 0 },
+    { name: 'Media Advisories', count: 0 },
+    { name: 'Speeches', count: 0 },
+    { name: 'Video Gallery', count: 0 },
+];
+
+// Hardcoded Hero Section Data
+const HERO_NEWS = {
+    id: 999, // Static ID
+    title: 'Prime Minister Visits Rampal Power Plant',
+    summary: 'PM lauds progress and environmental measures at the power plant during official visit.',
+    image_url: '/images/news-hero-bg.png', // Generated professional background
     category: 'Featured News',
+    is_featured: true,
+    created_at: new Date().toISOString()
 };
 
-const NEWS_ITEMS = [
-    {
-        id: 1,
-        title: 'Quarterly Financial Performance Review Q3 2023',
-        category: 'Corporate',
-        date: '15 Oct 2023',
-        excerpt: 'BIFPCL announces robust financial results for the third quarter, driven by operational efficiency.',
-        image: '/images/hero-2.png',
-    },
-    {
-        id: 2,
-        title: 'New Environmental Initiative: Project Green Canopy',
-        category: 'Sustainability',
-        categoryColor: 'green',
-        date: '12 Oct 2023',
-        excerpt: 'Details on the new reforestation project surrounding our production sites.',
-        image: '/images/hero-3.png',
-    },
-    {
-        id: 3,
-        title: 'BIFPCL Signs Strategic MOU with IEA',
-        category: 'Partnership',
-        date: '05 Oct 2023',
-        excerpt: 'Strengthening global ties for energy security and technological exchange.',
-        image: '/images/hero-1.png',
-    },
-    {
-        id: 4,
-        title: 'Breakthrough in Clean Coal Technology Integration',
-        category: 'Innovation',
-        date: '28 Sep 2023',
-        excerpt: 'Our R&D team has successfully piloted a new emission reduction system.',
-        image: '/images/hero-2.png',
-    },
-];
-
-const CATEGORIES = [
-    { name: 'Press Releases', count: 24 },
-    { name: 'Project Updates', count: 18 },
-    { name: 'Media Advisories', count: 7 },
-    { name: 'Speeches', count: 12 },
-    { name: 'Video Gallery', count: 5 },
-];
-
 function NewsPage() {
+    const { data: news, loading: newsLoading, error: newsError } = useNews();
+    // featuredNews hook removed as we are hardcoding the hero
+
+    const isLoading = newsLoading;
+
+    // The grid simply shows all API news, since the hero is hardcoded and separate
+    const gridNews = news || [];
+
+    if (isLoading) {
+        return (
+            <>
+                <Header />
+                <main className="news-page" style={{ minHeight: '60vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <div className="loading-spinner"></div>
+                </main>
+                <Footer />
+            </>
+        );
+    }
+
+    if (newsError) {
+        return (
+            <>
+                <Header />
+                <main className="news-page" style={{ minHeight: '60vh', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', gap: '1rem' }}>
+                    <h2>Unable to load news</h2>
+                    <p className="text-muted">{newsError}</p>
+                    <button className="btn-primary" onClick={() => window.location.reload()}>Retry</button>
+                </main>
+                <Footer />
+            </>
+        );
+    }
+
     return (
         <>
             <Header />
             <main className="news-page">
-                {/* Featured Hero */}
-                <section className="news-hero" style={{ backgroundImage: `linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%), url(${FEATURED_NEWS.image})` }}>
+                {/* Featured Hero - Hardcoded as requested */}
+                <section className="news-hero" style={{
+                    backgroundImage: `linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%), url(${HERO_NEWS.image_url})`
+                }}>
                     <div className="container">
-                        <span className="news-badge">{FEATURED_NEWS.category}</span>
-                        <h1>{FEATURED_NEWS.title}</h1>
-                        <p>{FEATURED_NEWS.description}</p>
+                        <span className="news-badge">{HERO_NEWS.category}</span>
+                        <h1>{HERO_NEWS.title}</h1>
+                        <p>{HERO_NEWS.summary}</p>
                         <div className="news-hero-actions">
-                            <button className="btn-primary">Read Full Story →</button>
+                            <Link to={`/news/${HERO_NEWS.id}`} className="btn-primary">Read Full Story →</Link>
                             <button className="btn-secondary">Share Press Release</button>
                         </div>
                     </div>
@@ -91,23 +95,32 @@ function NewsPage() {
 
                         {/* News Grid */}
                         <div className="news-grid">
-                            {NEWS_ITEMS.map((item) => (
-                                <article key={item.id} className="news-card">
-                                    <div className="news-card-image" style={{ backgroundImage: `url(${item.image})` }}></div>
-                                    <div className="news-card-content">
-                                        <span className={`news-category ${item.categoryColor || ''}`}>{item.category}</span>
-                                        <h3>{item.title}</h3>
-                                        <p className="news-date">📅 {item.date}</p>
-                                        <p className="news-excerpt">{item.excerpt}</p>
-                                        <Link to="/news" className="read-more">Read More →</Link>
-                                    </div>
-                                </article>
-                            ))}
+                            {gridNews.length > 0 ? (
+                                gridNews.map((item) => (
+                                    <article key={item.id} className="news-card">
+                                        <div className="news-card-image" style={{ backgroundImage: `url(${item.image_url || '/images/placeholder-news.png'})` }}></div>
+                                        <div className="news-card-content">
+                                            <span className="news-category">News</span>
+                                            <h3>{item.title}</h3>
+                                            <p className="news-date">📅 {new Date(item.created_at).toLocaleDateString()}</p>
+                                            <p className="news-excerpt">{item.summary}</p>
+                                            {/* Note: /news/:id route does not exist yet, but sticking to best practice of linking to detail */}
+                                            <Link to={`/news/${item.id}`} className="read-more">Read More →</Link>
+                                        </div>
+                                    </article>
+                                ))
+                            ) : (
+                                <div className="no-news-message">
+                                    <p>No other news articles available.</p>
+                                </div>
+                            )}
                         </div>
 
-                        <div className="load-more">
-                            <button>Load More News ↓</button>
-                        </div>
+                        {gridNews.length > 0 && (
+                            <div className="load-more">
+                                <button>Load More News ↓</button>
+                            </div>
+                        )}
                     </div>
 
                     {/* Sidebar */}
@@ -119,7 +132,8 @@ function NewsPage() {
                                 {CATEGORIES.map((cat, i) => (
                                     <Link key={i} to="/news" className="category-item">
                                         <span>{cat.name}</span>
-                                        <span className="count">{cat.count}</span>
+                                        {/* Counts removed as they are static/mocked */}
+                                        {/* <span className="count">{cat.count}</span> */}
                                     </Link>
                                 ))}
                             </nav>

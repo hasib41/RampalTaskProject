@@ -4,6 +4,7 @@ import {
   TendersPage,
   CareersPage,
   NewsPage,
+  NewsDetailPage,
   ContactPage,
   AboutPage,
   BoardPage,
@@ -39,6 +40,7 @@ function App() {
         <Route path="/tenders" element={<TendersPage />} />
         <Route path="/careers" element={<CareersPage />} />
         <Route path="/news" element={<NewsPage />} />
+        <Route path="/news/:id" element={<NewsDetailPage />} />
         <Route path="/contact" element={<ContactPage />} />
 
         {/* Admin Routes */}

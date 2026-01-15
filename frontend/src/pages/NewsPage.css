@@ -10,7 +10,7 @@
     min-height: 520px;
     display: flex;
     align-items: flex-end;
-    padding: 64px 24px;
+    padding: 64px 0;
     background-size: cover;
     background-position: center;
     border-radius: 16px;
