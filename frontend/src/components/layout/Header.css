@@ -315,11 +315,16 @@
     left: 0;
     right: 0;
     bottom: 0;
+    background: #1e3a5f;
     background: linear-gradient(180deg, #1e3a5f 0%, #0f172a 100%);
     padding: 32px 24px;
     transform: translateX(100%);
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     overflow-y: auto;
+    z-index: 999;
+    height: calc(100vh - var(--header-height));
+    height: calc(100dvh - var(--header-height));
+    /* Dynamic viewport height for mobile browsers */
 }
 
 .mobile-menu.open {
