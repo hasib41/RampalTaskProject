@@ -47,13 +47,30 @@ function AdminBoard() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (editingItem) {
-            setMembers(members.map(m => m.id === editingItem.id ? { ...m, ...formData, is_active: true } : m));
-        } else {
-            setMembers([...members, { id: Date.now(), ...formData, is_active: true }]);
+        try {
+            if (editingItem) {
+                const res = await fetch(`${API_URL}/board/${editingItem.id}/`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ ...formData, is_active: true })
+                });
+                const updated = await res.json();
+                setMembers(members.map(m => m.id === editingItem.id ? updated : m));
+            } else {
+                const res = await fetch(`${API_URL}/board/`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ ...formData, is_active: true })
+                });
+                const created = await res.json();
+                setMembers([...members, created]);
+            }
+            setShowModal(false);
+            resetForm();
+        } catch (error) {
+            console.error('Error saving board member:', error);
+            alert('Error saving. Please try again.');
         }
-        setShowModal(false);
-        resetForm();
     };
 
     const handleEdit = (item: BoardMember) => {
@@ -69,9 +86,14 @@ function AdminBoard() {
         setShowModal(true);
     };
 
-    const handleDelete = (id: number) => {
+    const handleDelete = async (id: number) => {
         if (confirm('Delete this board member?')) {
-            setMembers(members.filter(m => m.id !== id));
+            try {
+                await fetch(`${API_URL}/board/${id}/`, { method: 'DELETE' });
+                setMembers(members.filter(m => m.id !== id));
+            } catch (error) {
+                console.error('Error deleting board member:', error);
+            }
         }
     };
 

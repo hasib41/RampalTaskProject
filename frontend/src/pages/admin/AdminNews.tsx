@@ -48,11 +48,30 @@ function AdminNews() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // In a real app, this would POST/PUT to the API
-        console.log('Submitting:', formData);
-        alert(editingItem ? 'News article updated!' : 'News article created!');
-        setShowModal(false);
-        resetForm();
+        try {
+            if (editingItem) {
+                const res = await fetch(`${API_URL}/news/${editingItem.id}/`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ ...formData, is_active: true })
+                });
+                const updated = await res.json();
+                setNews(news.map(n => n.id === editingItem.id ? updated : n));
+            } else {
+                const res = await fetch(`${API_URL}/news/`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ ...formData, is_active: true })
+                });
+                const created = await res.json();
+                setNews([created, ...news]);
+            }
+            setShowModal(false);
+            resetForm();
+        } catch (error) {
+            console.error('Error saving news:', error);
+            alert('Error saving. Please try again.');
+        }
     };
 
     const handleEdit = (item: News) => {
@@ -69,9 +88,12 @@ function AdminNews() {
 
     const handleDelete = async (id: number) => {
         if (confirm('Are you sure you want to delete this article?')) {
-            // In a real app, this would DELETE from the API
-            console.log('Deleting:', id);
-            setNews(news.filter(item => item.id !== id));
+            try {
+                await fetch(`${API_URL}/news/${id}/`, { method: 'DELETE' });
+                setNews(news.filter(item => item.id !== id));
+            } catch (error) {
+                console.error('Error deleting news:', error);
+            }
         }
     };
 

@@ -24,67 +24,50 @@ function AdminMessages() {
     const context = useOutletContext<{ setUnreadMessages: (count: number) => void }>();
 
     useEffect(() => {
-        fetchMessages();
-    }, []);
-
-    const fetchMessages = async () => {
-        // Simulated messages data (API would need auth for real endpoint)
-        const mockMessages: Message[] = [
-            {
-                id: 1,
-                name: 'Mohammad Rahman',
-                email: 'rahman@example.com',
-                phone: '+880 1711-123456',
-                subject: 'Partnership Inquiry',
-                message: 'We are a local construction company interested in discussing potential partnership opportunities for upcoming projects.',
-                is_read: false,
-                created_at: new Date().toISOString(),
-            },
-            {
-                id: 2,
-                name: 'Fatima Begum',
-                email: 'fatima@example.com',
-                phone: '+880 1812-654321',
-                subject: 'Job Application Query',
-                message: 'I applied for the Senior Engineer position last week. Could you please provide an update on my application status?',
-                is_read: true,
-                created_at: new Date(Date.now() - 86400000).toISOString(),
-            },
-            {
-                id: 3,
-                name: 'Abdul Karim',
-                email: 'karim@example.com',
-                phone: '+880 1911-987654',
-                subject: 'Site Visit Request',
-                message: 'I am a journalist writing about sustainable power projects. I would like to request a site visit for a feature story.',
-                is_read: false,
-                created_at: new Date(Date.now() - 172800000).toISOString(),
-            },
-        ];
-
-        setMessages(mockMessages);
-        const unreadCount = mockMessages.filter(m => !m.is_read).length;
-        context?.setUnreadMessages?.(unreadCount);
-        setLoading(false);
-    };
-
-    const markAsRead = (id: number) => {
-        setMessages(messages.map(m =>
-            m.id === id ? { ...m, is_read: true } : m
-        ));
-        const newUnread = messages.filter(m => !m.is_read && m.id !== id).length;
-        context?.setUnreadMessages?.(newUnread);
-    };
-
-    const deleteMessage = (id: number) => {
-        if (confirm('Are you sure you want to delete this message?')) {
-            const msg = messages.find(m => m.id === id);
-            setMessages(messages.filter(m => m.id !== id));
-            if (msg && !msg.is_read) {
-                const newUnread = messages.filter(m => !m.is_read && m.id !== id).length;
-                context?.setUnreadMessages?.(newUnread);
+        const fetchMessages = async () => {
+            try {
+                const res = await fetch(`${API_URL}/contact/`);
+                const data = await res.json();
+                const messagesData = data.results || data || [];
+                setMessages(messagesData);
+                const unreadCount = messagesData.filter((m: Message) => !m.is_read).length;
+                context?.setUnreadMessages?.(unreadCount);
+            } catch (error) {
+                console.error('Error fetching messages:', error);
+            } finally {
+                setLoading(false);
             }
-            if (selectedMessage?.id === id) setSelectedMessage(null);
+        };
+        fetchMessages();
+    }, [context]);
+
+    const markAsRead = async (id: number) => {
+        try {
+            await fetch(`${API_URL}/contact/${id}/mark_read/`, { method: 'POST' });
+            setMessages(messages.map(m =>
+                m.id === id ? { ...m, is_read: true } : m
+            ));
+            const newUnread = messages.filter(m => !m.is_read && m.id !== id).length;
+            context?.setUnreadMessages?.(newUnread);
+        } catch (error) {
+            console.error('Error marking message as read:', error);
+        }
+    };
+
+    const deleteMessage = async (id: number) => {
+        if (confirm('Are you sure you want to delete this message?')) {
+            try {
+                await fetch(`${API_URL}/contact/${id}/`, { method: 'DELETE' });
+                const msg = messages.find(m => m.id === id);
+                setMessages(messages.filter(m => m.id !== id));
+                if (msg && !msg.is_read) {
+                    const newUnread = messages.filter(m => !m.is_read && m.id !== id).length;
+                    context?.setUnreadMessages?.(newUnread);
+                }
+                if (selectedMessage?.id === id) setSelectedMessage(null);
+            } catch (error) {
+                console.error('Error deleting message:', error);
+            }
         }
     };
 

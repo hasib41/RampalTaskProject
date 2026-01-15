@@ -116,9 +116,77 @@
     color: #1d4ed8;
 }
 
+.project-status.green {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.project-status.orange {
+    background: #ffedd5;
+    color: #ea580c;
+}
+
 .project-status.purple {
     background: #f3e8ff;
     color: #7c3aed;
+}
+
+/* Loading State */
+.projects-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 80px 0;
+    color: var(--color-text-muted);
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(19, 91, 236, 0.1);
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Error State */
+.projects-error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 60px 0;
+    color: #dc2626;
+}
+
+.projects-error button {
+    padding: 12px 24px;
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s ease;
+}
+
+.projects-error button:hover {
+    background: #1d4ed8;
+}
+
+/* Empty State */
+.projects-empty {
+    text-align: center;
+    padding: 60px 0;
+    color: var(--color-text-muted);
 }
 
 .project-capacity {

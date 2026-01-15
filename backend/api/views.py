@@ -20,89 +20,139 @@ from .serializers import (
 )
 
 
-class TenderViewSet(viewsets.ReadOnlyModelViewSet):
-    """API endpoint for Tenders."""
-    queryset = Tender.objects.filter(is_active=True)
+class TenderViewSet(viewsets.ModelViewSet):
+    """API endpoint for Tenders - Full CRUD."""
+    queryset = Tender.objects.all()
     serializer_class = TenderSerializer
     permission_classes = [AllowAny]
 
+    def get_queryset(self):
+        if self.action == 'list':
+            return Tender.objects.filter(is_active=True)
+        return Tender.objects.all()
 
-class NewsViewSet(viewsets.ReadOnlyModelViewSet):
-    """API endpoint for News."""
-    queryset = News.objects.filter(is_active=True)
+
+class NewsViewSet(viewsets.ModelViewSet):
+    """API endpoint for News - Full CRUD."""
+    queryset = News.objects.all()
     serializer_class = NewsSerializer
     permission_classes = [AllowAny]
+
+    def get_queryset(self):
+        if self.action == 'list':
+            return News.objects.filter(is_active=True)
+        return News.objects.all()
 
     @action(detail=False, methods=['get'])
     def featured(self, request):
         """Get featured news articles."""
-        featured = self.queryset.filter(is_featured=True)[:5]
+        featured = News.objects.filter(is_active=True, is_featured=True)[:5]
         serializer = self.get_serializer(featured, many=True)
         return Response(serializer.data)
 
 
-class CareerViewSet(viewsets.ReadOnlyModelViewSet):
-    """API endpoint for Careers/Jobs."""
-    queryset = Career.objects.filter(is_active=True)
+class CareerViewSet(viewsets.ModelViewSet):
+    """API endpoint for Careers/Jobs - Full CRUD."""
+    queryset = Career.objects.all()
     serializer_class = CareerSerializer
     permission_classes = [AllowAny]
+
+    def get_queryset(self):
+        if self.action == 'list':
+            return Career.objects.filter(is_active=True)
+        return Career.objects.all()
 
 
 class ContactMessageViewSet(viewsets.ModelViewSet):
     """API endpoint for Contact Messages."""
     queryset = ContactMessage.objects.all()
     serializer_class = ContactMessageSerializer
+    permission_classes = [AllowAny]
 
-    def get_permissions(self):
-        if self.action == 'create':
-            return [AllowAny()]
-        return [IsAdminUser()]
+    @action(detail=True, methods=['post'])
+    def mark_read(self, request, pk=None):
+        """Mark a message as read."""
+        message = self.get_object()
+        message.is_read = True
+        message.save()
+        return Response({'status': 'marked as read'})
 
 
-class ProjectStatViewSet(viewsets.ReadOnlyModelViewSet):
-    """API endpoint for Project Statistics."""
-    queryset = ProjectStat.objects.filter(is_active=True)
+class ProjectStatViewSet(viewsets.ModelViewSet):
+    """API endpoint for Project Statistics - Full CRUD."""
+    queryset = ProjectStat.objects.all()
     serializer_class = ProjectStatSerializer
     permission_classes = [AllowAny]
 
+    def get_queryset(self):
+        if self.action == 'list':
+            return ProjectStat.objects.filter(is_active=True)
+        return ProjectStat.objects.all()
 
-class BoardMemberViewSet(viewsets.ReadOnlyModelViewSet):
-    """API endpoint for Board Members."""
-    queryset = BoardMember.objects.filter(is_active=True).order_by('order')
+
+class BoardMemberViewSet(viewsets.ModelViewSet):
+    """API endpoint for Board Members - Full CRUD."""
+    queryset = BoardMember.objects.all()
     serializer_class = BoardMemberSerializer
     permission_classes = [AllowAny]
 
+    def get_queryset(self):
+        if self.action == 'list':
+            return BoardMember.objects.filter(is_active=True).order_by('order')
+        return BoardMember.objects.all()
 
-class SustainabilityStatViewSet(viewsets.ReadOnlyModelViewSet):
-    """API endpoint for Sustainability Statistics."""
-    queryset = SustainabilityStat.objects.filter(is_active=True).order_by('order')
+
+class SustainabilityStatViewSet(viewsets.ModelViewSet):
+    """API endpoint for Sustainability Statistics - Full CRUD."""
+    queryset = SustainabilityStat.objects.all()
     serializer_class = SustainabilityStatSerializer
     permission_classes = [AllowAny]
 
+    def get_queryset(self):
+        if self.action == 'list':
+            return SustainabilityStat.objects.filter(is_active=True).order_by('order')
+        return SustainabilityStat.objects.all()
 
-class ProjectViewSet(viewsets.ReadOnlyModelViewSet):
-    """API endpoint for Projects."""
-    queryset = Project.objects.filter(is_active=True)
+
+class ProjectViewSet(viewsets.ModelViewSet):
+    """API endpoint for Projects - Full CRUD."""
+    queryset = Project.objects.all()
     serializer_class = ProjectSerializer
     permission_classes = [AllowAny]
+
+    def get_queryset(self):
+        if self.action == 'list':
+            return Project.objects.filter(is_active=True)
+        return Project.objects.all()
 
     @action(detail=False, methods=['get'])
     def featured(self, request):
         """Get featured projects."""
-        featured = self.queryset.filter(is_featured=True)
+        featured = Project.objects.filter(is_active=True, is_featured=True)
         serializer = self.get_serializer(featured, many=True)
         return Response(serializer.data)
 
 
-class MilestoneViewSet(viewsets.ReadOnlyModelViewSet):
-    """API endpoint for Milestones."""
-    queryset = Milestone.objects.filter(is_active=True).order_by('order', 'year')
+class MilestoneViewSet(viewsets.ModelViewSet):
+    """API endpoint for Milestones - Full CRUD."""
+    queryset = Milestone.objects.all()
     serializer_class = MilestoneSerializer
     permission_classes = [AllowAny]
 
+    def get_queryset(self):
+        if self.action == 'list':
+            return Milestone.objects.filter(is_active=True).order_by('order', 'year')
+        return Milestone.objects.all()
 
-class CSRInitiativeViewSet(viewsets.ReadOnlyModelViewSet):
-    """API endpoint for CSR Initiatives."""
-    queryset = CSRInitiative.objects.filter(is_active=True)
+
+class CSRInitiativeViewSet(viewsets.ModelViewSet):
+    """API endpoint for CSR Initiatives - Full CRUD."""
+    queryset = CSRInitiative.objects.all()
     serializer_class = CSRInitiativeSerializer
     permission_classes = [AllowAny]
+
+    def get_queryset(self):
+        if self.action == 'list':
+            return CSRInitiative.objects.filter(is_active=True)
+        return CSRInitiative.objects.all()
+

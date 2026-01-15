@@ -1,7 +1,6 @@
 // About Page - Corporate profile page
 import { Link } from 'react-router-dom';
 import { Header, Footer } from '../components/layout';
-import { COMPANY_INFO } from '../constants';
 import './AboutPage.css';
 
 // About page data

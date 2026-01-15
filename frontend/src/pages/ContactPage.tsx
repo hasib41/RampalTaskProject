@@ -1,6 +1,5 @@
 // Contact Page - Corporate contact information
 import { Header, Footer } from '../components/layout';
-import { COMPANY_INFO } from '../constants';
 import './ContactPage.css';
 
 // Contact data

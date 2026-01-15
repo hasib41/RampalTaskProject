@@ -31,13 +31,17 @@ const CATEGORIES = [
     { value: 'infrastructure', label: 'Infrastructure' },
 ];
 
+type EditingItem =
+    | ({ type: 'stat' } & Partial<SustainabilityStat>)
+    | ({ type: 'csr' } & Partial<CSRInitiative>);
+
 function AdminSustainability() {
     const [stats, setStats] = useState<SustainabilityStat[]>([]);
     const [csr, setCSR] = useState<CSRInitiative[]>([]);
     const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState<'stats' | 'csr'>('stats');
     const [showModal, setShowModal] = useState(false);
-    const [editingItem, setEditingItem] = useState<any>(null);
+    const [editingItem, setEditingItem] = useState<EditingItem | null>(null);
 
     const [statForm, setStatForm] = useState({ label: '', value: '', trend: '', icon: '🌱', order: 1 });
     const [csrForm, setCSRForm] = useState({ title: '', description: '', category: 'education', impact_metric: '', image_url: '' });
@@ -63,42 +67,84 @@ function AdminSustainability() {
         }
     };
 
-    const handleStatSubmit = (e: React.FormEvent) => {
+    const handleStatSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (editingItem) {
-            setStats(stats.map(s => s.id === editingItem.id ? { ...s, ...statForm, is_active: true } : s));
-        } else {
-            setStats([...stats, { id: Date.now(), ...statForm, is_active: true }]);
+        try {
+            if (editingItem?.id) {
+                const res = await fetch(`${API_URL}/sustainability/${editingItem.id}/`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ ...statForm, is_active: true })
+                });
+                const updated = await res.json();
+                setStats(stats.map(s => s.id === editingItem.id ? updated : s));
+            } else {
+                const res = await fetch(`${API_URL}/sustainability/`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ ...statForm, is_active: true })
+                });
+                const created = await res.json();
+                setStats([...stats, created]);
+            }
+            setShowModal(false);
+            resetForms();
+        } catch (error) {
+            console.error('Error saving stat:', error);
+            alert('Error saving. Please try again.');
         }
-        setShowModal(false);
-        resetForms();
     };
 
-    const handleCSRSubmit = (e: React.FormEvent) => {
+    const handleCSRSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (editingItem) {
-            setCSR(csr.map(c => c.id === editingItem.id ? { ...c, ...csrForm, is_active: true } : c));
-        } else {
-            setCSR([...csr, { id: Date.now(), ...csrForm, is_active: true }]);
+        try {
+            if (editingItem?.id) {
+                const res = await fetch(`${API_URL}/csr/${editingItem.id}/`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ ...csrForm, is_active: true })
+                });
+                const updated = await res.json();
+                setCSR(csr.map(c => c.id === editingItem.id ? updated : c));
+            } else {
+                const res = await fetch(`${API_URL}/csr/`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ ...csrForm, is_active: true })
+                });
+                const created = await res.json();
+                setCSR([...csr, created]);
+            }
+            setShowModal(false);
+            resetForms();
+        } catch (error) {
+            console.error('Error saving CSR:', error);
+            alert('Error saving. Please try again.');
         }
-        setShowModal(false);
-        resetForms();
     };
 
-    const handleEdit = (item: any, type: 'stat' | 'csr') => {
+    const handleEdit = (item: SustainabilityStat | CSRInitiative, type: 'stat' | 'csr') => {
         setEditingItem({ ...item, type });
         if (type === 'stat') {
-            setStatForm({ label: item.label, value: item.value, trend: item.trend || '', icon: item.icon || '🌱', order: item.order });
+            const stat = item as SustainabilityStat;
+            setStatForm({ label: stat.label, value: stat.value, trend: stat.trend || '', icon: stat.icon || '🌱', order: stat.order });
         } else {
-            setCSRForm({ title: item.title, description: item.description, category: item.category, impact_metric: item.impact_metric || '', image_url: item.image_url || '' });
+            const csr = item as CSRInitiative;
+            setCSRForm({ title: csr.title, description: csr.description, category: csr.category, impact_metric: csr.impact_metric || '', image_url: csr.image_url || '' });
         }
         setShowModal(true);
     };
 
-    const handleDelete = (id: number, type: 'stat' | 'csr') => {
+    const handleDelete = async (id: number, type: 'stat' | 'csr') => {
         if (confirm('Delete this item?')) {
-            if (type === 'stat') setStats(stats.filter(s => s.id !== id));
-            else setCSR(csr.filter(c => c.id !== id));
+            try {
+                const endpoint = type === 'stat' ? 'sustainability' : 'csr';
+                await fetch(`${API_URL}/${endpoint}/${id}/`, { method: 'DELETE' });
+                if (type === 'stat') setStats(stats.filter(s => s.id !== id));
+                else setCSR(csr.filter(c => c.id !== id));
+            } catch (error) {
+                console.error('Error deleting:', error);
+            }
         }
     };
 

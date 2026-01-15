@@ -58,6 +58,20 @@ export interface ProjectStat {
     order: number;
 }
 
+export interface Project {
+    id: number;
+    name: string;
+    location: string;
+    description: string;
+    capacity: string;
+    status: 'operational' | 'construction' | 'planning' | 'maintenance';
+    category: 'coal' | 'solar' | 'wind' | 'hydro' | 'transmission';
+    image_url: string | null;
+    efficiency: string;
+    is_featured: boolean;
+    created_at: string;
+}
+
 // DRF Paginated Response type
 interface PaginatedResponse<T> {
     count: number;
@@ -161,5 +175,28 @@ export async function submitContactForm(data: ContactMessage): Promise<{ id: num
  */
 export async function getProjectStats(): Promise<ProjectStat[]> {
     const data = await apiFetch<PaginatedResponse<ProjectStat> | ProjectStat[]>('/stats/');
+    return extractResults(data);
+}
+
+/**
+ * Get all projects
+ */
+export async function getProjects(): Promise<Project[]> {
+    const data = await apiFetch<PaginatedResponse<Project> | Project[]>('/projects/');
+    return extractResults(data);
+}
+
+/**
+ * Get single project by ID
+ */
+export async function getProject(id: number): Promise<Project> {
+    return apiFetch<Project>(`/projects/${id}/`);
+}
+
+/**
+ * Get featured projects only
+ */
+export async function getFeaturedProjects(): Promise<Project[]> {
+    const data = await apiFetch<PaginatedResponse<Project> | Project[]>('/projects/?is_featured=true');
     return extractResults(data);
 }

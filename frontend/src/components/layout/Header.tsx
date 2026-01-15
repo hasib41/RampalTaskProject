@@ -41,7 +41,6 @@ function Header() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Close dropdown when clicking outside
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -51,6 +50,7 @@ function Header() {
 
         document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     // Close mobile menu when clicking a link
@@ -73,9 +73,11 @@ function Header() {
 
     // Close mobile menu on route change
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setIsMobileMenuOpen(false);
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setActiveDropdown(null);
-    }, [location]);
+    }, [location.pathname]);
 
     // Handle keyboard navigation
     const handleKeyDown = (e: React.KeyboardEvent, itemId: number, hasSubmenu: boolean) => {

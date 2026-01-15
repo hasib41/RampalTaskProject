@@ -1,7 +1,7 @@
 // Project Detail Page
 import { useParams, Link } from 'react-router-dom';
 import { Header, Footer } from '../components/layout';
-import { PROJECTS_DATA, PROJECT_SPECS, COMPANY_INFO } from '../constants';
+import { PROJECTS_DATA } from '../constants';
 import './ProjectDetailPage.css';
 
 // Technical specifications for Maitree STPP

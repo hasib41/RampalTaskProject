@@ -21,6 +21,13 @@ interface RecentItem {
     status?: string;
 }
 
+interface NewsItem {
+    id: number;
+    title: string;
+    created_at: string;
+    is_featured: boolean;
+}
+
 function AdminDashboard() {
     const [stats, setStats] = useState<DashboardStats>({
         news: 0, tenders: 0, careers: 0, messages: 0, projects: 0, board: 0
@@ -35,28 +42,34 @@ function AdminDashboard() {
     const fetchDashboardData = async () => {
         try {
             // Fetch stats from various endpoints
-            const [newsRes, tendersRes, careersRes] = await Promise.all([
+            const [newsRes, tendersRes, careersRes, projectsRes, boardRes, messagesRes] = await Promise.all([
                 fetch(`${API_URL}/news/`),
                 fetch(`${API_URL}/tenders/`),
                 fetch(`${API_URL}/careers/`),
+                fetch(`${API_URL}/projects/`),
+                fetch(`${API_URL}/board/`),
+                fetch(`${API_URL}/contact/`),
             ]);
 
             const newsData = await newsRes.json();
             const tendersData = await tendersRes.json();
             const careersData = await careersRes.json();
+            const projectsData = await projectsRes.json();
+            const boardData = await boardRes.json();
+            const messagesData = await messagesRes.json();
 
             setStats({
                 news: newsData.count || newsData.results?.length || newsData.length || 0,
                 tenders: tendersData.count || tendersData.results?.length || tendersData.length || 0,
                 careers: careersData.count || careersData.results?.length || careersData.length || 0,
-                messages: 0,
-                projects: 4,
-                board: 6,
+                messages: messagesData.count || messagesData.results?.length || messagesData.length || 0,
+                projects: projectsData.count || projectsData.results?.length || projectsData.length || 0,
+                board: boardData.count || boardData.results?.length || boardData.length || 0,
             });
 
             // Create recent items from fetched data
             const news = newsData.results || newsData || [];
-            const recent: RecentItem[] = news.slice(0, 5).map((item: any) => ({
+            const recent: RecentItem[] = news.slice(0, 5).map((item: NewsItem) => ({
                 id: item.id,
                 title: item.title,
                 type: 'News',

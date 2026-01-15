@@ -56,10 +56,30 @@ function AdminTenders() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log('Submitting:', formData);
-        alert(editingItem ? 'Tender updated!' : 'Tender created!');
-        setShowModal(false);
-        resetForm();
+        try {
+            if (editingItem) {
+                const res = await fetch(`${API_URL}/tenders/${editingItem.id}/`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ ...formData, is_active: true })
+                });
+                const updated = await res.json();
+                setTenders(tenders.map(t => t.id === editingItem.id ? updated : t));
+            } else {
+                const res = await fetch(`${API_URL}/tenders/`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ ...formData, is_active: true })
+                });
+                const created = await res.json();
+                setTenders([created, ...tenders]);
+            }
+            setShowModal(false);
+            resetForm();
+        } catch (error) {
+            console.error('Error saving tender:', error);
+            alert('Error saving. Please try again.');
+        }
     };
 
     const handleEdit = (item: Tender) => {
@@ -77,7 +97,12 @@ function AdminTenders() {
 
     const handleDelete = async (id: number) => {
         if (confirm('Are you sure you want to delete this tender?')) {
-            setTenders(tenders.filter(item => item.id !== id));
+            try {
+                await fetch(`${API_URL}/tenders/${id}/`, { method: 'DELETE' });
+                setTenders(tenders.filter(item => item.id !== id));
+            } catch (error) {
+                console.error('Error deleting tender:', error);
+            }
         }
     };
 

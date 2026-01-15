@@ -130,6 +130,34 @@ function useCountUp(end: number, duration: number = 2000, start: number = 0) {
     return { count, ref };
 }
 
+// Separate component to properly call useCountUp hook
+interface ImpactStat {
+    id: number;
+    icon: string;
+    value: number;
+    suffix: string;
+    label: string;
+    trend: string;
+    color: string;
+}
+
+function ImpactCard({ stat }: { stat: ImpactStat }) {
+    const { count, ref } = useCountUp(stat.value);
+    return (
+        <div className={`impact-card ${stat.color}`} ref={ref}>
+            <span className="impact-icon">{stat.icon}</span>
+            <div className="impact-value">
+                {stat.value > 1000 ? count.toLocaleString() : count}
+                <span className="suffix">{stat.suffix}</span>
+            </div>
+            <p className="impact-label">{stat.label}</p>
+            <div className="impact-trend">
+                <span>📈</span> {stat.trend}
+            </div>
+        </div>
+    );
+}
+
 function SustainabilityPage() {
     const [activeProgram, setActiveProgram] = useState(0);
 
@@ -172,22 +200,9 @@ function SustainabilityPage() {
                             <span className="update-badge">Updated Q4 2025</span>
                         </div>
                         <div className="impact-grid">
-                            {IMPACT_STATS.map((stat) => {
-                                const { count, ref } = useCountUp(stat.value);
-                                return (
-                                    <div key={stat.id} className={`impact-card ${stat.color}`} ref={ref}>
-                                        <span className="impact-icon">{stat.icon}</span>
-                                        <div className="impact-value">
-                                            {stat.value > 1000 ? count.toLocaleString() : count}
-                                            <span className="suffix">{stat.suffix}</span>
-                                        </div>
-                                        <p className="impact-label">{stat.label}</p>
-                                        <div className="impact-trend">
-                                            <span>📈</span> {stat.trend}
-                                        </div>
-                                    </div>
-                                );
-                            })}
+                            {IMPACT_STATS.map((stat) => (
+                                <ImpactCard key={stat.id} stat={stat} />
+                            ))}
                         </div>
                     </div>
                 </section>

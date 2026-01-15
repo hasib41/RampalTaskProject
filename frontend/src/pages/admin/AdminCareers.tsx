@@ -60,10 +60,30 @@ function AdminCareers() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log('Submitting:', formData);
-        alert(editingItem ? 'Job posting updated!' : 'Job posting created!');
-        setShowModal(false);
-        resetForm();
+        try {
+            if (editingItem) {
+                const res = await fetch(`${API_URL}/careers/${editingItem.id}/`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ ...formData, is_active: true })
+                });
+                const updated = await res.json();
+                setCareers(careers.map(c => c.id === editingItem.id ? updated : c));
+            } else {
+                const res = await fetch(`${API_URL}/careers/`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ ...formData, is_active: true })
+                });
+                const created = await res.json();
+                setCareers([created, ...careers]);
+            }
+            setShowModal(false);
+            resetForm();
+        } catch (error) {
+            console.error('Error saving career:', error);
+            alert('Error saving. Please try again.');
+        }
     };
 
     const handleEdit = (item: Career) => {
@@ -83,7 +103,12 @@ function AdminCareers() {
 
     const handleDelete = async (id: number) => {
         if (confirm('Are you sure you want to delete this job posting?')) {
-            setCareers(careers.filter(item => item.id !== id));
+            try {
+                await fetch(`${API_URL}/careers/${id}/`, { method: 'DELETE' });
+                setCareers(careers.filter(item => item.id !== id));
+            } catch (error) {
+                console.error('Error deleting career:', error);
+            }
         }
     };
 

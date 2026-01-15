@@ -33,21 +33,8 @@ const CATEGORY_OPTIONS = [
 ];
 
 function AdminProjects() {
-    const [projects, setProjects] = useState<Project[]>([
-        {
-            id: 1, name: 'Maitree Super Thermal Power Project', location: 'Rampal, Bagerhat',
-            description: 'Ultra-supercritical coal-fired thermal power plant with 1320 MW capacity.',
-            capacity: '1320 MW', status: 'operational', category: 'coal',
-            image_url: '/images/hero-1.png', efficiency: '45.6%', is_featured: true, is_active: true
-        },
-        {
-            id: 2, name: 'Solar Power Initiative', location: 'Rampal Complex',
-            description: 'Rooftop solar installation for administrative buildings.',
-            capacity: '5 MW', status: 'construction', category: 'solar',
-            image_url: '/images/hero-2.png', efficiency: '', is_featured: false, is_active: true
-        },
-    ]);
-    const [loading, setLoading] = useState(false);
+    const [projects, setProjects] = useState<Project[]>([]);
+    const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [editingItem, setEditingItem] = useState<Project | null>(null);
 
@@ -56,15 +43,48 @@ function AdminProjects() {
         status: 'operational', category: 'coal', image_url: '', efficiency: '', is_featured: false
     });
 
+    useEffect(() => {
+        fetchProjects();
+    }, []);
+
+    const fetchProjects = async () => {
+        try {
+            const res = await fetch(`${API_URL}/projects/`);
+            const data = await res.json();
+            setProjects(data.results || data || []);
+        } catch (error) {
+            console.error('Error fetching projects:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (editingItem) {
-            setProjects(projects.map(p => p.id === editingItem.id ? { ...p, ...formData } : p));
-        } else {
-            setProjects([...projects, { id: Date.now(), ...formData, is_active: true }]);
+        try {
+            if (editingItem) {
+                const res = await fetch(`${API_URL}/projects/${editingItem.id}/`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ ...formData, is_active: true })
+                });
+                const updated = await res.json();
+                setProjects(projects.map(p => p.id === editingItem.id ? updated : p));
+            } else {
+                const res = await fetch(`${API_URL}/projects/`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ ...formData, is_active: true })
+                });
+                const created = await res.json();
+                setProjects([...projects, created]);
+            }
+            setShowModal(false);
+            resetForm();
+        } catch (error) {
+            console.error('Error saving project:', error);
+            alert('Error saving project. Please try again.');
         }
-        setShowModal(false);
-        resetForm();
     };
 
     const handleEdit = (item: Project) => {
@@ -77,9 +97,14 @@ function AdminProjects() {
         setShowModal(true);
     };
 
-    const handleDelete = (id: number) => {
+    const handleDelete = async (id: number) => {
         if (confirm('Delete this project?')) {
-            setProjects(projects.filter(p => p.id !== id));
+            try {
+                await fetch(`${API_URL}/projects/${id}/`, { method: 'DELETE' });
+                setProjects(projects.filter(p => p.id !== id));
+            } catch (error) {
+                console.error('Error deleting project:', error);
+            }
         }
     };
 
@@ -92,6 +117,15 @@ function AdminProjects() {
         const colors: Record<string, string> = { operational: 'success', construction: 'warning', planning: 'info', maintenance: 'danger' };
         return colors[status] || 'info';
     };
+
+    if (loading) {
+        return (
+            <div className="admin-empty">
+                <div className="admin-empty-icon">⏳</div>
+                <div className="admin-empty-title">Loading projects...</div>
+            </div>
+        );
+    }
 
     return (
         <div>
