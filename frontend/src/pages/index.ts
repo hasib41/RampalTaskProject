@@ -10,3 +10,4 @@ export { default as BoardPage } from './BoardPage';
 export { default as ProjectsPage } from './ProjectsPage';
 export { default as ProjectDetailPage } from './ProjectDetailPage';
 export { default as SustainabilityPage } from './SustainabilityPage';
+export { default as FAQPage } from './FAQPage';

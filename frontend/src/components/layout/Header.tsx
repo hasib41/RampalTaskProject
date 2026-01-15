@@ -14,6 +14,7 @@ const NAV_ITEMS = [
         submenu: [
             { id: 21, label: 'Corporate Profile', href: '/about' },
             { id: 22, label: 'Board of Directors', href: '/about/board' },
+            { id: 23, label: 'FAQ', href: '/about/faq' },
         ]
     },
     { id: 3, label: 'Projects', href: '/projects' },

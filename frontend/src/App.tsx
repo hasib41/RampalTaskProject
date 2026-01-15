@@ -10,7 +10,8 @@ import {
   BoardPage,
   ProjectsPage,
   ProjectDetailPage,
-  SustainabilityPage
+  SustainabilityPage,
+  FAQPage
 } from './pages';
 import {
   AdminLayout,
@@ -35,6 +36,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/about/board" element={<BoardPage />} />
+        <Route path="/about/faq" element={<FAQPage />} />
         <Route path="/projects" element={<ProjectsPage />} />
         <Route path="/projects/:id" element={<ProjectDetailPage />} />
         <Route path="/sustainability" element={<SustainabilityPage />} />
